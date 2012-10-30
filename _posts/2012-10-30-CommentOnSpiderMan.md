@@ -14,4 +14,4 @@ in the body and has not been discovered yet. If the hidden power is found,
 maybe our life will turn to be really different, and we will be some body.
 So I really understand the excited feeling of Petter. Petter is no longer the
 weak stupid student ever since, and is never affraid of anybody or ashamed of
-himself.  I really hope I can have change my destiny some day.
+himself. Good luck to him. 
