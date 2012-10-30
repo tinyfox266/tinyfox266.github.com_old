@@ -14,4 +14,10 @@ in the body and has not been discovered yet. If the hidden power is found,
 maybe our life will turn to be really different, and we will be some body.
 So I really understand the excited feeling of Petter. Petter is no longer the
 weak stupid student ever since, and is never affraid of anybody or ashamed of
-himself. Good luck to him. 
+himself. 
+
+After turning strong, Peter starts to be arrogant. He starts to fight in school,
+starts to argue with his uncle and hurt his uncle's heart.
+He is never the docile and shy body.
+He starts to use his
+power to earn money.
