@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "°µÊ±¼ä(1)"
+title: "HiddenTime"
 description: ""
 category: [psychology]
 tags: [Excerpt]
