@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Branching</title>
+<meta http-equiv="Content-Type" content="text/html; charset=latin1">
+</head>
+<body>
+
+<h2 id="toc_0.1">The Purpose of Branching</h2>
+<p>
+Say you are working on a paper. You¡¯ve gotten a first draft out, submitted for
+review. You then get a new batch of data, and you¡¯re in the process of
+integrating it into the paper. Halfway in, however, the review committee calls
+you up and tells you that you need to change some of your section headings to
+conform to format specifications. What do you do?
+</p>
+
+<p>
+Obviously you don¡¯t want to send them your half-baked revisions with corrected
+headings. What you want to do is jump back to the version you sent out, change
+the headings on that version, and send off that copy, all the while keeping your
+recent work safely stored somewhere else
+</p>
+
+<p>
+This is the idea behind <strong>branching</strong>, and Git makes it easy to do.
+</p>
+
+<p>
+<strong>Note on terminology</strong>: The terms ¡°branch¡± and ¡°head¡± are nearly synonymous in
+Git. Every branch is represented by one head, and every head represents one
+branch. Sometimes, ¡°branch¡± will be used to refer to a head and the entire
+history of ancestor commits preceding that head, whereas ¡°head¡± will be used
+to refer exclusively to a single commit object, the most recent commit in the
+branch.
+</p>
+
+<h2 id="toc_0.2">Creating a Branch</h2>
+<p>
+To create a branch, say your repository looks like this:
+</p>
+
+<pre>
+(A) &lt;-- (B) &lt;-- (C)
+                 |
+               master
+                 |
+                HEAD
+</pre>
+    
+<p>
+Where (B) was the version you sent to the conference and (C) is your new  version.
+</p>
+
+<p>
+Now, we use  the <code>git branch</code> command:
+</p>
+<blockquote>
+<code>git branch [new-head-name] [reference-to-(B)]</code>
+</blockquote>
+    
+<p>
+or, for example:
+</p>
+<blockquote>
+<code>git branch fix-headers HEAD^</code>
+</blockquote>
+    
+<p>
+Now our commit tree looks liks this:
+</p>
+
+<pre>
+(A) &lt;-- (B) &lt;------(C)
+         |          |
+     fix-headers  master
+                    |
+                  HEAD
+         
+</pre>
+
+<h2 id="toc_0.3">Switching Between Branches</h2>
+<p>
+In order to start working to headers, you need to set the fix-headers to be the
+current head. This is done with <code>git checkout</code>:
+</p>
+<blockquote>
+<code>git checkout [head-name]</code>
+</blockquote>
+    
+<p>
+This commands does the following:
+</p>
+<ul>
+<li>
+Points <em>HEAD</em> to the commit object specified by <em>[head-name]</em>
+
+<li>
+Rewrites all the files in the directory to match the files stored in the
+      new <em>HEAD</em> commit.
+
+</ul>
+ 
+<p>
+ <strong>Important note</strong>: if there are any uncommitted changes when you run git checkout,
+ Git will behave very strangely. The strangeness is predictable and sometimes
+ useful, but it is best to avoid it. All you need to do, of course, is commit
+ all the new changes before checking out the new head.
+</p>
+ 
+<p>
+After checking out the fix-headers head, you fix the headers. Now you add and
+commit the changes as above. The resulting repository looks like this:
+</p>
+
+<pre>
+          &lt;------------------(D)
+         /                    |
+(A) &lt;-- (B) &lt;------(C)        |
+                    |         |
+                  master fix-headers
+                              |
+                             HEAD
+</pre>
+
+<h2 id="toc_0.4">Related Commands</h2>
+<p>
+Other useful commands at this point:
+</p>
+<ul>
+<li>
+<code>git branch</code> with no arguments lists the existing heads, with a star next
+      to the current head.
+
+<li>
+<code>git diff [head1]..[head2]</code> shows the diff between the commits referenced
+      by <em>head2</em> and <em>head1</em>.
+
+<li>
+<code>git diff [head1]...[head2]</code>(three dots) shows the diff between <em>head2</em>
+      and the common ancestor of <em>head1</em> and <em>head2</em>. For example, 
+      <code>diff master...fix-headers</code> above shows the diff between (D) and (B)
+
+<li>
+<code>git log [head1]..[head2]</code> shows the change log between <em>head2</em> and the
+      common ancestor of <em>head1</em> and <em>head2</em>. With three dots, it also shows the
+      changes between <em>head1</em> and the common ancestor. This is not so useful. 
+      (Switching <em>head1</em> and <em>head2</em>, on the other hand, is very usefull.)
+
+</ul>
+
+</body>
+</html>
