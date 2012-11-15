@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>MyPlan</title>
+<meta http-equiv="Content-Type" content="text/html; charset=latin1">
+</head>
+<body>
+
+<p>
+2012-11-08 14:30:22
+My purpose is to design some policy to solute the practical problems
+</p>
+<ul>
+<li>
+Identify the policy I am looking for
+
+<ul>
+<li>
+figure out what the policy looks like.
+
+<li>
+figure out that does the policy mean.
+
+<li>
+figure out how user can use the policy(change the mind thought into
+          formal policy).
+
+</ul>
+<li>
+find some practical examples to justify this policy is useful.
+
+<li>
+design a method to enforce this policy     
+
+</ul>
+    
+<p>
+My policy:
+</p>
+<ul>
+<li>
+policy 1
+
+<ul>
+<li>
+h_1 and h_2 can not be both released.
+
+<ul>
+<li>
+h_1 \/ h_2
+
+<li>
+h_1 and h_2 can not be both released.
+
+<li>
+if h_1 and h_2 should not be released both, then the policy should be
+          like h_1 \/ h_2
+
+</ul>
+<li>
+Example (We just consider two levels here)
+
+<ul>
+<li>
+In the laboratory, only one of the full professors is femal. So we can
+          find out her salary with just two queries: 'Average salary professors?'
+          and 'Average salary male professors?'
+
+</ul>
+</ul>
+</ul>
+<blockquote>
+assume that the laboratory contains n members, 
+with the salaries are s1,...,sn: 
+s1 ... s(n-1) are male's salaries, sn is the only female's salary.
+And non-individual member's salary can be released.
+</blockquote>
+<blockquote>
+If the Average salaries of professors(e1 = (s1+...+sn)/n) and 
+the Average salaries of male professors (e2 = (s1+...+s(n-1))/(n-1))
+can be released, then the salary of the female professor can be
+calculated with e1*n - e2*(n-1) if n is public.
+</blockquote>
+<blockquote>
+So the policy can be set as (s1+...+sn) \/ (s1+...+s(n-1)).
+</blockquote>
+<blockquote>
+Actually this policy cannot prevent an attacker 
+from getting the salary of the female when he requests e1 in the
+first run can requests e2 in the second run.
+</blockquote>
+          
+<ul>
+<li>
+Consider such a game, there are nine covered cards which contains a
+          King on the table.
+          Two players revealed one card in turn in each round.
+          The one who revealed the King will win.
+          We should ensure that only one card can be revealed by one player at each round.
+
+</ul>
+<blockquote>
+So the policy for the function play(int i) can be set as forall 0&lt;=i&lt;9.\/ card[i]
+can be as follows:
+</blockquote>
+
+<pre>
+    int card[9];
+    int x;
+    int continue=0;
+    main () {
+        for (int i=0; i&lt;9; i++)
+          card[i] = random(1,13);
+        card[random(0,8)] = 13;
+        for (int i=0; i&lt;9 &amp;&amp; continue; i++) {
+          input x;
+          continue= play(x);
+        }
+    
+    }
+      
+    int play(int i) {
+        if (i &lt;0 || i &gt; 9)
+          return;
+        if (card[i] == 13) {
+          output 'win'
+          return 0;
+        }  else {
+          output card[i];
+          return 1;
+        }
+    }
+</pre>
+
+
+<ul>
+<li>
+policy 2
+
+<ul>
+<li>
+h_1 can be released only after h_2 is released(also called release in
+      multiple steps).
+
+<ul>
+<li>
+h_1 --&gt; h_2  
+
+<li>
+h_2 cannot be released before h_1
+
+</ul>
+<li>
+Example
+
+<ul>
+<li>
+
+</ul>
+</ul>
+</ul>
+
+</body>
+</html>

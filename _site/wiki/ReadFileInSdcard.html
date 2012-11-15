@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>ReadFileInSdcard</title>
+<meta http-equiv="Content-Type" content="text/html; charset=latin1">
+</head>
+<body>
+
+<pre>
+    fr = new FileReader("/sdcard/a.txt"); 
+    buf = new BufferedReader(fr);
+
+try { 
+    String s = buf.readLine(); 
+    while(s!=null) 
+    { 
+      System.out.println(s); 
+      s =buf.readLine(); 
+
+    } 
+  } 
+  catch (IOException ex1) { 
+    ex1.printStackTrace(); 
+  }
+
+finally{ 
+    try { 
+      buf.close(); 
+      fr.close(); 
+    } 
+    catch (IOException ex2) { 
+      ex2.printStackTrace(); 
+    } 
+  } 
+    
+</pre>
+
+</body>
+</html>
