@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Information Flow Inference For Free</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+In our opinion, to make a crucial point: the two mechanisms
+(access control, information flow control) are entirely
+<em>unrelated</em>, and should coexist <em>without</em> interacting.
+Indeed, access control involves <em>principals</em>, <em>trust</em> and <em>authentication</em>,
+while information flow control requires neither. Furthermore, describing
+access control usually involves introducing some form of <em>security violation</em>
+in the language's semantics, while information flow control does not.
+Why? Access control implements a fixed security policy, defined by (P,&gt;&gt;);
+it is meaningless in the absence of such a policy. Information flow control,
+on the other hand, does make sense even when (L,&lt;&lt;) is left unspecified, 
+because it is only a <em>dependency</em> analysis. It does not, fundamentally, 
+have anything to do with security, which explains why it can be 
+formalized without a notion of security violation.
+</p>
+
+<p>
+In these works, the alleged justification for requesting <em>l &lt;&lt; p</em> is as follows.
+<em>p</em> tells who may use the value <em>directly</em>, while <em>l</em> tells who may use it 
+<em>indirectly</em>, i.e have(possibly) partial access to the information contained 
+in it. Because any principals who is granted direct access it thereby granted
+indirect access at the same time, requiring <em>l&lt;&lt;p</em> may seem natural. 
+We deem it wrong, however, because these notions are really orthogonal:
+while <em>p</em> indeed tells <em>who</em> may use the value, <em>l</em> tells <em>which</em> information
+it contains. Mixing the two mechanisms yields  a needlessly complex system.
+Seperating them makes the system more modular, conceptually simpler, and 
+potentially more expressive, since <em>P</em> and <em>L</em> may be distinct.
+</p>
+
+<p>
+Myers and Liskov propose a "decentralized" label model which is a subtle mixture
+of access control and information flow control. The model also rests on a set of 
+principals <em>(P,&gt;&gt;)</em>. A <em>label</em> is a set of tagged <em>policies</em>, where the tag 
+carried by every policy is a principals, called <em>readers</em>. Labels form a
+pre-order, whose underlying order is a lattice; it is used, as in this paper, 
+to perform information flow analysis. However, Myers and Liskov also allow a
+number of "safe" declassification operations: a principal <em>p</em> may choose to 
+<em>relax</em> the label carried by a given value, by arbitrarily modifying any policy
+owned by a principals <em>q</em> which it acts for. Of course, <em>p</em> is not allowed to
+affect the policies owned by principals whose trust it has not received. So.
+labels do not only carry <em>dependency</em> information; then also contain <em>access control</em>
+information, since the use of declassification is restricted.
+</p>
+
+<p>
+We think Myers and Liskov's model has significant practical interest. However,
+we believe that comparable expressive power can be achieved in a theoretically 
+simpler systems. Indeed, imagine orthogonal access control and information control,
+as suggested above. Then one may selectively allow declassification by
+providing, in the initial typing environment, a number of declassification
+operations, <em>locked</em> at appropriate levels of authority. The sets of <em>P</em> and <em>L</em>
+may, in general, be chosen independently; only the types of declassification
+operations provide a connection between the two. 
+</p>
+
+</body>
+</html>
