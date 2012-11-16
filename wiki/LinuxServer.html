@@ -7,111 +7,154 @@
 </head>
 <body>
 
-<p>
-View the existing status
-</p>
+<h2 id="toc_0.1">View the existing status</h2>
 
 <p>
    <code>service --status-all</code> 
 </p>
 
+<h2 id="toc_0.2">View the existing package</h2>
 <p>
-View the existing package
    <code>dpkg -l</code>
 </p>
    
-<p>
-Set static ip
-</p>
+<h2 id="toc_0.3">Set static ip</h2>
 <ul>
 <li>
 <code>vim /etc/network/interfaces</code>
-   comment the following lines
-   <code>The primary network interface auto eth0</code>
-   <code>iface eth0 inet dhcp</code>
+
+</ul>
+    
+<ul>
+<li>
+comment the following lines
 
 </ul>
    
 <p>
-   add the following lines
+   <code>The primary network interface auto eth0</code>
+   <code>iface eth0 inet dhcp</code>
+</p>
+   
+<ul>
+<li>
+add the following lines
+
+</ul>
+    
+<p>
    <code>iface eth0 inet static</code>
+</p>
+   
+<p>
    <code>address 219.219.216.11</code>
+</p>
+   
+<p>
    <code>netmask 255.255.255.0</code>
+</p>
+   
+<p>
    <code>gateway 219.219.216.1</code>
 </p>
    
 <ul>
 <li>
 edit file /etc/resolv.conf
-   nameserver 202.96.134.133
-   nameserver 202.106.0.20
 
 </ul>
+    
+<p>
+   <code>nameserver 202.96.134.133</code>
+</p>
+   
+<p>
+   <code>nameserver 202.106.0.20</code>
+</p>
    
 <ul>
 <li>
 restore etho
-    <code>sudo ifdown eth0</code>
-    <code>sudo ifup eth0</code>
 
 </ul>
+<blockquote>
+<code>sudo ifdown eth0</code>
+</blockquote>
+<blockquote>
+<code>sudo ifup eth0</code>
+</blockquote>
 
-<p>
-Change user
-</p>
+<h2 id="toc_0.4">Change user</h2>
 <blockquote>
 <code>[sudo] su &lt;username&gt;</code>
 </blockquote>
     
-<p>
-Sudo Confiure /etc/sudoers
-</p>
+<h2 id="toc_0.5">Sudo Confiure /etc/sudoers</h2>
 <blockquote>
 who where = (as who) what 
 </blockquote>
 
-<p>
-ACL (Access Control List)
-</p>
+<h2 id="toc_0.6">ACL (Access Control List)</h2>
 
 <p>
    <code>sudo mount -o acl,rw /</code> 
-   <code>setfacl -m u:test:rw filename</code>
 </p>
    
 <p>
-Useful network command 
+   <code>setfacl -m u:test:rw filename</code>
 </p>
-<blockquote>
-<code>nslookup</code>  query Internet name servers interactively
-</blockquote>
-<blockquote>
-<code>arp -a</code>  manipulate the system ARP(Address Resolution Protocal) cache
-</blockquote>
+   
+<h2 id="toc_0.7">Useful network command</h2>
 
-<p>
-Get own host mac addree
-</p>
+<ul>
+<li>
+<code>nslookup</code>  query Internet name servers interactively
+
+</ul>
+    
+<ul>
+<li>
+<code>arp -a</code>  manipulate the system ARP(Address Resolution Protocal) cache
+
+</ul>
+
+<h2 id="toc_0.8">Get own host mac addree</h2>
 <blockquote>
 <code>ifconfig</code> the HWAddr term
 </blockquote>
     
-<p>
-Get neighborhood mac address
-</p>
+<h2 id="toc_0.9">Get neighborhood mac address</h2>
 <blockquote>
 <code>arp -a</code>
 </blockquote>
     
-<p>
-Get specified ip address's mac address
-</p>
+<h2 id="toc_0.10">Get specified ip address's mac address</h2>
 <blockquote>
 <code>ping &lt;ip address&gt;</code>
 </blockquote>
 <blockquote>
 <code>arp -a</code>
 </blockquote>
+    
+
+<h2 id="toc_0.11">Get the access,modify,change time of a file</h2>
+<blockquote>
+<code>stat &lt;filename&gt;</code>
+</blockquote>
+    
+<ul>
+<li>
+Access time: the time read the file
+
+<li>
+Modify time: the time write the file
+
+<li>
+Change time: the time change the mod of the file
+
+</ul>
+
+
 <ul>
 <li>
 <a href="Raid.html">Raid</a>
