@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>coordinate</title>
+<meta http-equiv="Content-Type" content="text/html; charset=latin1">
+</head>
+<body>
+
+<h2 id="toc_0.1">The definition of the coodinate system of android</h2>
+<p>
+the origin is left_down corner of the phone
+</p>
+
+<p>
+x axis points to the right side of the phone
+</p>
+
+<p>
+y axis points to the top of the phone
+</p>
+
+<p>
+z axis points to the front of the screen
+</p>
+
+<p>
+The value returned by the accelerator is as follows:
+</p>
+<ul>
+<li>
+value[0]:acceleration on x-axis minus Gx
+
+<li>
+value[1]: acceleration on y-axis minus Gy
+
+<li>
+value[2]: acceleration on z-axis minus Gz
+
+</ul>
+
+<p>
+Gx(Gy/Gz) represents the gravity acceleration on x-axis(y-axis/z-axis)
+</p>
+
+<p>
+When the phone is static, then the sum of the squares of value[0],
+value[1], value[2] is the square of the gravity acceleration G^2.
+</p>
+
+
+<h2 id="toc_0.2">Computation of the angle between each axis and the vertical direction</h2>
+<p>
+let x=value[0], y=value[1], z=value[2]
+</p>
+
+<p>
+angleXG = x/ sqrt(x<sup><small>2+y</small></sup>2+z^2)
+</p>
+
+<p>
+angleYG = y/ sqrt(x<sup><small>2+y</small></sup>2+z^2)
+</p>
+
+<p>
+angleZG = z/ sqrt(x<sup><small>2+y</small></sup>2+z^2)
+</p>
+
+</body>
+</html>

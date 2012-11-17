@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>DetectShake</title>
+<meta http-equiv="Content-Type" content="text/html; charset=latin1">
+</head>
+<body>
+
+<p>
+A demo is from <a href="http://my.oschina.net/u/247549/blog/60479">here</a>
+</p>
+
+<p>
+Every <code>diffTime</code>, detect the value of the accelarator, if 
+the value of the accelarator of the last time is 
+<code>x_last</code>,<code>y_last</code>,<code>z_last</code>, and the current value is 
+<code>x</code>,<code>y</code>,<code>z</code>.
+Then the shake speed is :
+</p>
+
+<p>
+<code>speed = (x+y+z-x_last-y_last-z_last)/diffTime</code>
+</p>
+
+<p>
+or
+</p>
+
+<pre>
+    distance=sqrt(x^2 + y^2 + z^2)
+    distance_last=sqrt(x_last^2 + y_last^2 + z_last^2)
+    speed = (distance - distance_last)/diffTime
+
+</pre>
+
+</body>
+</html>
