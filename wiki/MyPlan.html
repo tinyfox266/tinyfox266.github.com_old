@@ -106,31 +106,31 @@ can be as follows:
 </blockquote>
 
 <pre>
-    int card[9];
-    int x;
-    int continue=0;
-    main () {
-        for (int i=0; i&lt;9; i++)
-          card[i] = random(1,13);
-        card[random(0,8)] = 13;
-        for (int i=0; i&lt;9 &amp;&amp; continue; i++) {
-          input x;
-          continue= play(x);
-        }
-    
-    }
-      
-    int play(int i) {
-        if (i &lt;0 || i &gt; 9)
-          return;
-        if (card[i] == 13) {
-          output 'win'
-          return 0;
-        }  else {
-          output card[i];
-          return 1;
-        }
-    }
+              int card[9];
+              int x;
+              int continue=0;
+              main () {
+                  for (int i=0; i&lt;9; i++)
+                    card[i] = random(1,13);
+                  card[random(0,8)] = 13;
+                  for (int i=0; i&lt;9 &amp;&amp; continue; i++) {
+                    input x;
+                    continue= play(x);
+                  }
+              
+              }
+                
+              int play(int i) {
+                  if (i &lt;0 || i &gt; 9)
+                    return;
+                  if (card[i] == 13) {
+                    output 'win'
+                    return 0;
+                  }  else {
+                    output card[i];
+                    return 1;
+                  }
+              }
 </pre>
 
 

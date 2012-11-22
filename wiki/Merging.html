@@ -86,13 +86,13 @@ If there are no conflicts, the resulting repository looks like this:
 </p>
 
 <pre>
-          &lt;-----------------(D)-------
-         /                   |         \
-(A) &lt;-- (B) &lt;------(C) &lt;-------------- (E)
-                             |          |
-                         fix-headers  master
-                                        |
-                                       HEAD
+              &lt;-----------------(D)-------
+             /                   |         \
+    (A) &lt;-- (B) &lt;------(C) &lt;-------------- (E)
+                                 |          |
+                             fix-headers  master
+                                            |
+                                           HEAD
 
 </pre>
 
@@ -123,13 +123,13 @@ A fast forward merge is a simple optimization for merging. Say your repository l
 </p>
 
 <pre>
-                +-- (D) -- (E)
-               /            |
-(A) -- (B) -- (C)           |
-               |            |
-            current     to-merge
-               |
-              HEAD
+                    +-- (D) -- (E)
+                   /            |
+    (A) -- (B) -- (C)           |
+                   |            |
+                current     to-merge
+                   |
+                  HEAD
 
 </pre>
 
@@ -142,13 +142,13 @@ Hence, the resulting merged repository looks like:
 </p>
 
 <pre>
-                +-- (D) -- (E)
-               /            |
-(A) -- (B) -- (C)           |
-                            |
-                    to-merge, current
-                                 |
-                                HEAD
+                    +-- (D) -- (E)
+                   /            |
+    (A) -- (B) -- (C)           |
+                                |
+                        to-merge, current
+                                     |
+                                    HEAD
 </pre>
 
 <p>
