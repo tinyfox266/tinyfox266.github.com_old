@@ -164,6 +164,30 @@ Change time: the time change the mod of the file
 
 </ul>
 
+<h2 id="toc_0.12">Add chinese support for ubuntu</h2>
+<ul>
+<li>
+sudo apt-get install language-pack-zh-hans
+
+<li>
+sudo apt-get install language-pack-zh-hans-base
+
+<li>
+edit .bashrc add the following lines:<br>
+    LANG="zh_CN.UTF-8" <br>
+    LANGUAGE="zh_CN.UTF-8" <br>
+    export LANG LANGUAG
+
+<li>
+source .bashrc    
+
+<li>
+let vim support chinese<br>
+  add the following line in .vimrc<br>
+  set fileencodings=utf-8,cp936
+
+</ul>
+
         </body>
         
     </head>
