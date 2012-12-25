@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css", href="style.css">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+        <script type="text/javascript" src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+
+        <title>Mencoder</title>
+
+        <body>
+            
+<ul>
+<li>
+flv to mp3<br>
+    <code>mencoder -oac mp3lame -ovc copy -of rawaudio -o &lt;file.mp3&gt; &lt;file.flv&gt;</code> 
+
+</ul>
+    
+<ul>
+<li>
+combine flvs<br>
+    <code>mencoder -oac pcm -ovc copy -idx -o &lt;file.flv&gt; &lt;flv_to_be_combined&gt;</code> 
+
+</ul>
+    
+<ul>
+<li>
+extract audio from video    
+    <code>mencoder -oac mp3lame -ovc frameno -ss &lt;starttime&gt; -endpos &lt;endtime&gt; -o &lt;output.mp3&gt; -of rawaudio &lt;input_videos&gt;</code>
+
+<li>
+extract one part from the video  
+    <code>mencoder -oac mp3lame -ovc lavc -ss &lt;starttime&gt; -endpos &lt;endtime&gt; -o &lt;output&gt; &lt;input_videos&gt;</code> 
+
+</ul>
+
+        </body>
+        
+    </head>
+</html>
