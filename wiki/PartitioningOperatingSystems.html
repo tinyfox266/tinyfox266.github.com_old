@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css", href="style.css">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+        <script type="text/javascript" src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+
+        <title>PartitioningOperatingSystems</title>
+
+        <body>
+            
+<p>
+The following are sliced from
+<a href="http://www.lynuxworks.com/products/whitepapers/partition.php">lynuxworks</a>
+</p>
+
+<h2 id="toc_0.1">Partitioning Operating Systems Versus Process-based Operating Systems</h2>
+<h1 id="toc_1">Partitioning operating systems</h1>
+<p>
+In a partitioning operating systems, memory(and possibly CPU time as well) is
+divided among statically allocated paritions in a fixed manner. The idea is to
+take a processor and make it pretend it is several processors by completely
+isolating the subsystems.
+</p>
+
+<p>
+Hard partitions are set up for each part of the system, and each has certain
+amount of memory(and potentially a time slice) allocated to it.
+Each partition is forever limited to its initial fixed memory allocation, which
+can neither be increased nor decreased after the initial system configuration.
+</p>
+
+<p>
+Within each partition may be multiple threads or processes, or both, if the
+operating system supports them. How these threads are scheduled depends on the
+implementation of the OS. A partition will generally support a separate
+namespace to enable multi-programming by mapping the program into the partition.
+</p>
+
+<p>
+If the operating system supports time partitioning, it too is fixed.
+For example, in an ARINC 653 partitioning system with just three partitions and
+a total major allocation of 100ms per cycle, a fixed cyclic scheduler could be
+set to run the first partition for 20ms, then the second partition for 30ms, and
+then the third for 50ms.
+</p>
+
+<p>
+LynxOS-178 is an 
+<a href="http://www.lynuxworks.com/solutions/milaero/arinc-653.php ">ARINC 653 partitioning operating system</a> 
+that supports 
+<a href="http://www.lynuxworks.com/products/posix/processes.php3">multiple POSIX processes</a>
+and multiple address spaces; priority scheduling; priority inheritance; and
+priority ceilings within each partition. LynxOS-178 essentially moves the LynxOS
+scheduler and operating system up a level into each partition, with a full ARINC
+653 partitioning operating system underneath.
+</p>
+
+        </body>
+        
+    </head>
+</html>
