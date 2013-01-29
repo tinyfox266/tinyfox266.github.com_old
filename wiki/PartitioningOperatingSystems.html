@@ -15,8 +15,8 @@ The following are sliced from
 <a href="http://www.lynuxworks.com/products/whitepapers/partition.php">lynuxworks</a>
 </p>
 
-<h2 id="toc_0.1">Partitioning Operating Systems Versus Process-based Operating Systems</h2>
-<h1 id="toc_1">Partitioning operating systems</h1>
+<h1 id="toc_1">Partitioning Operating Systems Versus Process-based Operating Systems</h1>
+<h2 id="toc_1.1">Partitioning operating systems</h2>
 <p>
 In a partitioning operating systems, memory(and possibly CPU time as well) is
 divided among statically allocated paritions in a fixed manner. The idea is to
@@ -55,6 +55,26 @@ and multiple address spaces; priority scheduling; priority inheritance; and
 priority ceilings within each partition. LynxOS-178 essentially moves the LynxOS
 scheduler and operating system up a level into each partition, with a full ARINC
 653 partitioning operating system underneath.
+</p>
+
+<h2 id="toc_1.2">Partitions versus process-understanding the difference</h2>
+<p>
+Partitioning Operating Systems are powerful when it is necessary to completely
+isolate portions of the system from each other. 
+For example, the activities of the CPU in a plane's cockpit control system must
+be perdictable and known at all times, and the fixed, cyclic nature of a
+partitioning operating system's scheduler makes this possible. Without fixed
+time-slice partitioning, a rate monotonic analysis would need to be performed to
+know exactly where a system is executing.
+</p>
+
+<p>
+Conversely, a global,thread-scheduler, process-based operating system best
+serves the requirements of a system with an I/O device that could burst, such as
+a radar system. Such a system must be capable of responding to bursting hardware
+with all the system resources available. This can only be achieved by denying
+processing time to other parts of the system, which would not be permitted under
+a partitioning operating system and its unmodifiable processing-time allotments.
 </p>
 
         </body>
