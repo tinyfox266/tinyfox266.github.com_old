@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css", href="style.css">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+        <script type="text/javascript" src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+
+        <title>SKPPRevisited:ChoicesAndRationale</title>
+
+        <body>
+            
+<h2 id="toc_0.1">Introduction</h2>
+<p>
+SKPP developed a new abstraction and related requirements for least privilege in
+separation kernels, and a mean by which a Target of Evaluation(TOE) could ensure
+the adequacy of its trusted subjects(with respect to the basic abstract policy).
+It developed the <em>configuration vector</em> abstraction by which the basic abstract
+policy and other requirements for configuration could be provided to the TOE.
+It developed specifications for a configuration tool to be used by security
+administrators to prepare <em>configuration vector</em> for submission to the TOE.
+And finally, the authoring team developed concepts and requirements for dynamic,
+runtime changes to the security configuration of the TOE.
+</p>
+
+<h2 id="toc_0.2">Separation Kernel</h2>
+<p>
+A separation kernel is an executive that serves a simple purpose: it controls
+all of the physical resources of a system(i.e., hardware, firmware, software);
+it constructs different types of resources abstractions from the physical
+resources, while leaving other physical resources in their original form; it
+exports a subset of these resources; it allocates the exported resources to
+partitions; and it controls information flow between the partitions and between
+exported resources. The exported resources, partitions, and allowed flows are
+specified in a <em>configuration vector</em> input to the separation kernel during its
+initialization.
+</p>
+
+<p>
+There are three kinds of flows: partition-to-partition(P2P) flow and
+subject-to-resource(S2R) flow.
+</p>
+
+<h2 id="toc_0.3">Compound Security Policy</h2>
+<p>
+The SKPP was written to enforce a compound security policy, or PIFP, with
+requirements at the gross partition level as well as at the granularity of
+individual subjects and resources.
+</p>
+
+<h3 id="toc_0.3.1">Reduction of Dual Policies</h3>
+<p>
+SKPP uses compound security policy to bring two benefits:
+</p>
+<ol>
+<li>
+The specification is more clear in contrast with reduced ones which are  
+  systematically reduced off-line to one statement of allowed
+  subject-to-resource flows, by, for example, simply removing from the S2R
+  matrix all of the flows not allowed by both policies.
+
+<li>
+It will be easy for TOE to check whether a given instantiation of
+  configuration data is well-formed.
+
+</ol>
+
+<h3 id="toc_0.3.2">Engineering of Compound Policies</h3>
+<p>
+A TOE implementation can encode the compound polices however it likes for
+efficiency, and cache the related decisions, as long as these encodings and
+caches are performed by the TSF or its initialization routines, In fact, with
+suitable hardware support, runtime software checks may not be needed at all,
+e.g., if all of the flows of each runtime application are verified during
+initialization to conform to the policy, and those verifications are cached in
+the form of hardware segment descriptors. The kernel could then pass the
+descriptors to application in the form of application start-up date, and no
+further software checks would be required.
+</p>
+
+<h2 id="toc_0.4">SKPP Policy Semantics</h2>
+<h3 id="toc_0.4.1">Original Policy</h3>
+<p>
+The original security policy for the SKPP was fairly simple, but strict: for a
+flow be <em>ALLOWED</em>, it must be permitted by both the P2P policy rules and the S2R
+policy rules.
+</p>
+
+<p>
+This policy was revised to accommodate vendors who wished to bifurcate the
+compound policy, allowing either or both policies to be active in a given system.
+</p>
+
+<h3 id="toc_0.4.2">Ordered Policy</h3>
+<p>
+Based on a desire for the SKPP S2R policy to be consistent with DAC policies in
+other systems, the SKPP management team decided that the S2R policy should be
+structured with a set of ordered rules by which the priority of authorization
+would be determined. This policy includes notions of explicit denial of access,
+and "don't care" mode of access, such  that each mode(read, write) in the policy
+matrix would have one of three values (allowed, denied, or null).
+</p>
+
+<p>
+This policy allows an override of the P2P policy by including anything other
+null in the S2R entry. 
+</p>
+
+<h3 id="toc_0.4.3">Final Policy</h3>
+<p>
+The final policy simplified the ordered set of rules, although it is still more
+complicated and less restrictive than the original.
+</p>
+
+<p>
+In the S2R policy the S2R rules override the P2P rules everywhere except where
+there is a null entry in the S2R rule set.
+Note that the S2R policy is defined to reference the P2P rules, regardless of
+whether the P2P policy itself is active.
+</p>
+
+<h3 id="toc_0.4.4">Verification and Engineering Suggestions</h3>
+<p>
+The <em>original</em> policy should be implemented as the default in the SKPP-based system.
+Since the S2R matrix cannot be ignored in the original policy, the set of secure
+reachable states(or the set of access allowed) is a subset of those allowed by
+the final policy: so the original policy can be considered to be at least as
+secure as the final policy.
+Of course, having implemented the original policy as a default, a vendor could
+also choose to allow the final policy to be selected as a configuration-vector
+option.
+</p>
+
+
+<h2 id="toc_0.5">Basic Acyclic Flows</h2>
+<p>
+Another significant concern with separation kernels is the identification of
+trusted subjects. Information stakeholders need assurance that all trusted
+subjects in deployed systems are suitable trustworthy, and that they are
+confined with respect to the principle of least policy.
+To support the analysis of trusted subjects, the SKPP requires the 
+</p>
+
+        </body>
+        
+    </head>
+</html>

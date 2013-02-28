@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css", href="style.css">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+        <script type="text/javascript" src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+
+        <title>EnforcingRobustDeclassification</title>
+
+        <body>
+            
+<h3 id="toc_0.0.1">Introduction</h3>
+<p>
+This paper proposes a type system to enforce 
+<em>Robust Declassification</em>.
+Additionally,
+this paper defines the a language-based definition of 
+<em>active attacker</em> 
+and a language-based definition of <em>Robust Declassification</em>.
+</p>
+
+<p>
+This paper connects the confidentiality and the integrity of the program.
+</p>
+
+<h3 id="toc_0.0.2">Basic Idea</h3>
+<p>
+The attacker cannot influence the decision of the declassification.
+</p>
+
+<p>
+Take the following example:
+</p>
+
+<pre>
+[.]; if x_LL then y_LH:=declassify(z_HH,LH)
+               else Skip
+</pre>
+
+<p>
+is not robust, because the attacker might affect what is declassifieid or when
+it is declassified, by controlling the decision variable x_LL.
+</p>
+
+<p>
+So only high-integrity variable(which cannot be modified by the attacker)  
+can emerge in the guard condition of the
+conditional and the loop.
+And attacker can only modify the variable which is LL(Low confidentiality, Low
+integrity).
+</p>
+
+<h3 id="toc_0.0.3">Active Attack</h3>
+<p>
+Active attack is modelled by a language which can only manipulate on the 
+LL(Low confidentiality, Low integrity) variables.
+</p>
+
+<p>
+The formal definition is shown below:
+</p>
+
+\[
+\begin{array}{lll}
+    a &amp; ::= &amp; \mbox{skip} \\
+      &amp; ~|~ &amp;  v:=e(\forall v \in \textit{Vars}(e).\Gamma(x)=l\Gamma(v))
+        ~|~   a_1;\ a_2  \\
+      &amp; ~|~ &amp; \mbox{if } b \mbox{ then } a_1 \mbox{ else } a_2             
+              (\forall x \in \textit{Vars}(b).\Gamma(x)=l) \\
+      &amp; ~|~ &amp; \mbox{while } b \mbox{ do } a (\forall x \in \textit{Vars}(b).\Gamma(x)=l)
+        
+\end{array}
+\]
+
+<h3 id="toc_0.0.4">Program</h3>
+<p>
+A program is composed by two parts:
+(i). high-integrity context, which is original program that may contain the
+declassification statement;
+(ii). low-integrity code, which is the <em>active attack</em> code.
+</p>
+
+<p>
+The formal definition of high-integrity context is shown below:
+</p>
+\[
+\begin{array}{ll}
+    e ::= \textit{val} 
+      ~|~ v
+      ~|~ e_1 \mbox{ op } e_2
+      ~|~ \mbox{declassify}(e,l)
+\\[2ex]      
+    c[\vec{\bullet}] 
+      ::= \mbox{skip}
+      ~|~ v:=e
+      ~|~ c_1;\ c_2
+      ~|~ \mbox{if } e \mbox{ then } c_1 \mbox{ else } c_2
+      ~|~ \mbox{while } e \mbox{ do } c
+      ~|~ \bullet
+\end{array}
+\]
+
+<p>
+Note that the robustness is really a property of a high-integrity program
+context rather than of an entire program.
+</p>
+
+<h3 id="toc_0.0.5">Security Type System for Robustness</h3>
+<p>
+The security type system is used to restrict the 
+high integrity context.
+The goal for the <em>Robust Declassification</em> is to prevent the declassification
+mechanism from abusing by the <em>Active Attacker</em>.
+</p>
+
+<p>
+The key rule governing uses of declassification states that only high-integrity
+data is allowed to be declassified and that declassification might only occur
+in a high-integrity context.
+</p>
+
+<p>
+The formal definition of the declassification typing rules is shown below:
+</p>
+
+\[
+\Gamma,\textit{pc} \vdash e:l' \quad
+l \sqcup \textit{pc} \sqsubseteq \Gamma(v) \quad
+I(l) = I(l') \quad
+I(\textit{pc}),I(l') \in H_I
+\]
+<hr />
+\[
+\Gamma,\textit{pc} \vdash v:=\mbox{declassify}(e,l)
+\]
+
+        </body>
+        
+    </head>
+</html>

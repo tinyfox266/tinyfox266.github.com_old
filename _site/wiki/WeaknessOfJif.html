@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css", href="style.css">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+        <script type="text/javascript" src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+
+        <title>WeaknessOfJif</title>
+
+        <body>
+            
+<p>
+The followings are extraced from <a href="http://siis.cse.psu.edu/jpmail/index.html">jpmail</a>
+Security-typed languages are still in development. The most feature-full
+security-typed language, <a href="http://www.cs.cornell.edu/jif ">Jif</a>, provides a 
+security-typed variant of much of the Java language. Unfortunately, some
+practical tools are lacking in order to use this language to build real-world
+systems.
+</p>
+
+<p>
+It is  found that <a href="http://siis.cse.psu.edu/jpmail/jiftools.html">tools</a> were
+needed in three categories:
+</p>
+<ul>
+<li>
+<strong>Software engineering</strong>: Developing an application in Jif was complex and
+      time-consuming. Just the edit/compile/repair cycle was tedious because of
+      the surprisingly large number of possible information leaks in typical
+      programs. Jif prevents all possible leaks, forcing very particular
+      programming styles. There are also opportunities for other refactoring to
+      aid the programmer in labelling and re-labelling data. These developments
+      are still in progress.
+
+<li>
+<strong>High-level policy construction</strong>: Jif policy consists essentially of 3
+      parts: (1) prinpals,(2) delegations, (3) declassifiers. Modelling
+      different security environments(a bussiness, research lab, or Military MLS
+      system setting, e.g.) should be possible at a high-level. This policy
+      should be configurable at the application level rather than only at the
+      level of each line of code. No such policy infrastructure exists for Jif.
+
+<li>
+<strong>Distributed policy</strong>: Jif aims to be useful for building distributed,
+      secure application. This requires that policy be able to remain consistent
+      across a distributed framework. Furthermore, Jif applications must be
+      able to interact with other components, such as the operating system,
+      network, foreign servers, etc. Currently, there is no way to maintain a
+      policy across a distributed system involving non-Jif components.
+
+</ul>
+
+<h2 id="toc_0.1">Jiftools</h2>
+<p>
+To address the problem above, several tools are proposed:
+</p>
+
+<h3 id="toc_0.1.1">Software Engineering: A Jif IDE using Eclipse</h3>
+<p>
+More information, downloads and installation instructions, see the 
+<a href="http://siis.cse.psu.edu/jifclipse/index.html">Jifclipse</a> 
+</p>
+
+<h3 id="toc_0.1.2">A high-level policy tool for jif</h3>
+<p>
+Jif lacks a policy management infrastructure. We developed such an
+infrastructure consisting of two components: a runtime policy store that
+provides dynamic access to principals, and a policy compiler that automatically
+generates principals. Our high-level policy tool is based on 
+<a href="http://siis.cse.psu.edu/jpmail/trusteddeclassification.html">Trusted Declassification</a>
+The detailed can be seen in 
+<a href="http://siis.cse.psu.edu/jpmail/papers/plas06.pdfTrusted ">declassification: High-level policy for a security-typed language</a>
+</p>
+
+
+<ul>
+<li>
+Policy store The policy store is a runtime data structure and collection of
+      methods that provide for the dynamic look-up of Jif principals by name. The
+      policy store contains the collection of principals for a system; each principal
+      contains its own policy, (thus the name, "policy" store).
+
+</ul>
+<blockquote>
+By initializing the policy store at the outset of a program, we can impose a
+single policy on a whole program, carefully regulating where (i.e. in which
+declassifiers), how and by whom declassifications are allowed to take place.
+Furthermore, we have easy access to a central store of dynamic principals that
+can be applied to incoming data. Finally, this policy store gives us a starting
+point for building a distributed policy store that can govern the policy on a
+distributed network of applications.
+</blockquote>
+<ul>
+<li>
+Policy compiler The Jif tools lack utilities to specify high-level policy. In
+      particular, we desire to automatically generate Jif policy infrastructure (code)
+      from high level specifications. To this end, we developed a simple policy
+      language and an accompanying compiler. Currently, the policy language consists
+      of only two types of policy statements: delegations and declassifier-allowances
+      (implicitly, there is also the declaration of the principals themselves). 
+
+</ul>
+<blockquote>
+Policy is integrated into a Jif program by using the policy compiler. The
+compiler interprets the policy specification and generates the associated Jif
+code. The created code provides functions for the creation of principals (as
+identified in the specification) and for their insertion in the policy store.
+The policy specification also includes explicit authorizations of all the
+declassifiers that the principals trust. Functions for the policy initialization
+and principal delegations described in the policy file are also created.
+Finally, this automatically generated code is introduced into the Jif
+application with a single line of Jif code. 
+</blockquote>
+
+      
+<h3 id="toc_0.1.3">Distributed policy tools for Jif</h3>
+
+<p>
+For Jif-labeled data to pass outside a Jif application and retain its policy,
+some special steps must be taken. We provide some tools for extending an
+application's policy beyond the application itself. Since most Jif applications
+(for the foreseeable future) will need to interact with non-Jif components,
+there must be some reliable way to talk about principals and policy outside of a
+Jif application. To do this, we provide a policy store for mapping Strings to
+principals and some cryptographic tools for maintaining principal identities in
+a distributed environment.
+</p>
+
+<ul>
+<li>
+Policy Store How should Jif labels and principals be represented outside of Jif
+      applications? We chose to represent principals by using their name, stored in a
+      String. When a principal re-enters a Jif application, this name must be
+      re-associated with the corresponding Jif principal. The policy store maps
+      (String) names to Jif principals. The Jif principals, themselves, contain their
+      policy (allowed delegations and declassifications). This makes it possible to
+      send data outside a Jif application: it can be labeled with a String and then on
+      re-arrival in a Jif application, the label can be re-associated with a Jif
+      principal.
+
+<li>
+<strong>KeyPrincipal</strong> In order to maintain the consistency of principals between
+      applications, each principal should be associated with a public key and data
+      which passes outside a Jif application should be encoded with the public key for
+      that principal. The <strong>KeyPrincipal</strong> class serves to associate a Jif principal with
+      a public key. These public keys are read from certificates which have been
+      signed by a trusted certificate authority (CA). In essence, a distributed system
+      of Jif applications should be parameterized by a single CA to ensure principal
+      consistency.
+
+<li>
+<strong>"Logging in"</strong> This small extension to the Jif runtime system allows a user to
+      "log in" to a Jif program as a particular principal. The authentication for this
+      login is that the user can provide the private key for the particular principal
+      (certified by a particular CA, stored in a local keystore). When the
+      authentication is successful, the runtime system can be safely labeled with this
+      principal, including the file system and stdin/stdout.
+
+</ul>
+
+<p>
+These distributed policy tools are still under construction. Currently, the
+policy and certificates are stored in the local file system and must be
+synchronized outside of a Jif application. In the future there will be a
+distributed policy store from which principals' certificates and policy can be
+loaded.
+</p>
+
+        </body>
+        
+    </head>
+</html>

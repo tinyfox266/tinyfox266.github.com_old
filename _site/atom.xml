@@ -1,54 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title>Tinyfox Blog</title>
- <link href="http://tinyfox266.github.com/atom.xml" rel="self"/>
- <link href="http://tinyfox266.github.com"/>
- <updated>2012-11-15T18:55:52+08:00</updated>
- <id>http://tinyfox266.github.com</id>
+ <title>Jekyll Bootstrap</title>
+ <link href="http://username.github.com/" rel="self"/>
+ <link href="http://username.github.com"/>
+ <updated>2013-02-28T14:05:18+08:00</updated>
+ <id>http://username.github.com</id>
  <author>
-   <name>ZiPeng Zhang</name>
-   <email>zhangzpp@mail.ustc.edu.cn</email>
+   <name>Name Lastname</name>
+   <email>blah@email.test</email>
  </author>
 
  
  <entry>
-   <title>HiddenTime</title>
-   <link href="http://tinyfox266.github.com/psychology/2012/11/05/HiddenTime1"/>
-   <updated>2012-11-05T00:00:00+08:00</updated>
-   <id>http://tinyfox266.github.com/psychology/2012/11/05/HiddenTime1</id>
-   <content type="html">&lt;p&gt;有人十年才能领悟一个道理，因为他们是被动领悟。 只有当现实重重撞到脸上的时候才感到疼，疼完了之后 还是不记得时时提醒自己，结果很快时过境迁抛之脑后， 等到第二次遇到同一个坑的时候早忘了曾经跌过头跟头了, 像这样的学习效率，除非天天摔坑，否则遗忘的效率 总是大于吃亏长的记性。善于利用思维时间的人则能够 在重要的事情上时时主动提醒自己，将临时的记忆变成 硬编码的行为习惯。&lt;/p&gt;
-
-&lt;p&gt;只有靠推理才能深入理解一个事物,看到别人看不到的 地方，这部分推理的过程就是你的思维时间，也是人 一生中占据一个显著比例的“暗时间”。&lt;/p&gt;</content>
- </entry>
- 
- <entry>
-   <title>Comment on Spider Man</title>
-   <link href="http://tinyfox266.github.com/2012/10/30/CommentOnSpiderMan"/>
-   <updated>2012-10-30T00:00:00+08:00</updated>
-   <id>http://tinyfox266.github.com/2012/10/30/CommentOnSpiderMan</id>
-   <content type="html">&lt;p&gt;Today, I review the movie &lt;em&gt;Spider-Man&lt;/em&gt;. I am really excited when I saw Petter aquire the super-power accidently. Sometimes, I really hoped that I can get the super ability to change my situation where I have been so long. Or may be there is the huge potential power in the body and has not been discovered yet. If the hidden power is found, maybe our life will turn to be really different, and we will be some body. So I really understand the excited feeling of Petter. Petter is no longer the weak clumsy student ever since, and is never affraid of anybody or ashamed of himself.&lt;/p&gt;
-
-&lt;p&gt;After turning strong, Peter starts to be arrogant. He starts to fight in school, starts to argue with his uncle and hurt his uncle&amp;#8217;s heart. He is never the docile and shy body. He starts to use his power to earn money.&lt;/p&gt;
-
-&lt;p&gt;The impressive words:&lt;/p&gt;
-
-&lt;p&gt;Uncle Ban: I know I am not your father.&lt;/p&gt;
-
-&lt;p&gt;Peter: Then do not pertend to be.&lt;/p&gt;
-
-&lt;p&gt;Robber: Give a chance.&lt;/p&gt;
-
-&lt;p&gt;Perter: My uncle, did you give him a chance.&lt;/p&gt;
-
-&lt;p&gt;Unclue Ban: With greater power, comes with greater responsibility.&lt;/p&gt;</content>
- </entry>
- 
- <entry>
    <title>Jekyll Introduction</title>
-   <link href="http://tinyfox266.github.com/lessons/2011/12/29/jekyll-introduction"/>
+   <link href="http://username.github.com/lessons/2011/12/29/jekyll-introduction"/>
    <updated>2011-12-29T00:00:00+08:00</updated>
-   <id>http://tinyfox266.github.com/lessons/2011/12/29/jekyll-introduction</id>
+   <id>http://username.github.com/lessons/2011/12/29/jekyll-introduction</id>
    <content type="html">&lt;p&gt;This Jekyll introduction will outline specifically what Jekyll is and why you would want to use it. Directly following the intro we&amp;#8217;ll learn exactly &lt;em&gt;how&lt;/em&gt; Jekyll does what it does.&lt;/p&gt;
 
 &lt;h2 id='overview'&gt;Overview&lt;/h2&gt;
@@ -122,8 +90,8 @@
 |   |-- default.html
 |   |-- post.html
 |-- _posts
-|   |-- 20011-10-25-open-source-is-good.markdown
-|   |-- 20011-04-26-hello-world.markdown
+|   |-- 2011-10-25-open-source-is-good.markdown
+|   |-- 2011-04-26-hello-world.markdown
 |-- _site
 |-- index.html
 |-- assets

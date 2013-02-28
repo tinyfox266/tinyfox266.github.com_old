@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css", href="style.css">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+        <script type="text/javascript" src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+
+        <title>DetectShake</title>
+
+        <body>
+            
+<p>
+A demo is from [<a href="http://my.oschina.net/u/247549/blog/60479">http://my.oschina.net/u/247549/blog/60479</a> here]
+</p>
+
+<p>
+Every <code>diffTime</code>, detect the value of the accelarator, if 
+the value of the accelarator of the last time is 
+<code>x_last</code>,<code>y_last</code>,<code>z_last</code>, and the current value is 
+<code>x</code>,<code>y</code>,<code>z</code>.
+Then the shake speed is :
+</p>
+
+<p>
+<code>speed = (x+y+z-x_last-y_last-z_last)/diffTime</code>
+</p>
+
+<p>
+or
+</p>
+
+<pre>
+    distance=sqrt(x^2 + y^2 + z^2)
+    distance_last=sqrt(x_last^2 + y_last^2 + z_last^2)
+    speed = (distance - distance_last)/diffTime
+
+</pre>
+
+        </body>
+        
+    </head>
+</html>

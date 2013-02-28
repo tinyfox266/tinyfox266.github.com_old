@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css", href="style.css">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+        <script type="text/javascript" src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+
+        <title>DesignAndVerificationOfSecureSystem</title>
+
+        <body>
+            
+<h2 id="toc_0.1">The Problem of Trusted Processes</h2>
+<p>
+Firstly, the <em>Trusted Process</em> is needed.
+That is to say that 
+if the kernel enforces and obey a single, system-wide security policy, then
+there must be certain system functions cannot be accommodated with its
+discipline.
+A line-printer spooler provides a simple example of such a function:
+if the spooler and its spool files are at the highest security classification,
+then users of more lowly classification cannot inspect their own spool
+files -- even for the innocent purpose of discovering the progress of their jobs.
+For this reason, it is usual for spool files to be classified at the level of
+their owners while the spooler continues to run at the highest level so that it
+may read spool files of all classifications. But then the spooler cannot delete
+spool files after their contents have been printed -- for such action conflicts
+with the (kernel enforced) *-property of multilevel security.
+In order to provide an acceptable user interface, while avoiding the
+proliferation of used spool files, it seems necessary that the spooler should
+become a 'trusted process' and be allowed to violate the *-property.
+</p>
+
+<p>
+In real systems there are many functions which require the privileges of trusted
+processes in order to evade or override the security controls normally enforced
+by the kernel.
+</p>
+
+<p>
+Once trusted processes are admitted to the system, however, the kernel is no
+longer the sole arbiter of security; it is necessary to be sure that the special
+privileges granted to trusted processes are not abused by those processes and
+may not be usurped by other, untrusted, processes.
+In order to guarantee security, therefore, we must verify the whole of the
+'trusted computing base' -- that is, the combination of kernel and trusted
+processes. The difficulty is that existing formal models do not provide a basis
+for the verification of this combination. Even for the <em>Bell-LaPadula Model</em>
+which includes trusted processes.
+</p>
+
+<p>
+The true roots of the difficulties caused by trusted processes are not to be
+found in those processes themselves, nor in the functions which then perform,
+but in the conception that a security kernel should act as a centralized agent
+for the enforcement of a uniform system-wide security policy.
+We should seek a system structure that allows each component to make its own
+contribution to the security of the overall system and that treats all
+contributions equally.
+</p>
+
+<h2 id="toc_0.2">Separation Kernel</h2>
+<p>
+The task of a separation kernel is to create an environment which is
+indistinguishable from that provided by a physically distributed system:
+it must appear as if each regime is a separate, isolated machine and that
+information can only flow from one machine to another along known external
+communications lines.
+</p>
+
+<p>
+Properties should be proved of a separation kernel:
+</p>
+<ul>
+<li>
+There are no channels for information flow between regimes other than those
+  explicitly provided. 
+
+<ul>
+<li>
+The problem can be simplified in this way:
+    if we cut the communication channels that are allowed, then provided there are
+    no illicit channels present, the components of the system will become
+    completely isolated from one another. 
+    It remains to discover how to 'cut' communication lines that are not physical
+    wires but properties of the kernel software.
+
+<li>
+Since communication in software is accomplished by the use of shared
+    objects, for example regimes A and B use the shared object X to communicate,
+    then if we replace all of A's references to X by references to a new object,
+    X1, and all of B's references to X by references to a new object, X2,
+    then this is equivalent to 'cutting' the communication channel represented
+    by X.
+
+</ul>
+</ul>
+
+<p>
+The difference between <em>Separation Kernel(SK)</em> and <em>Virtual Machine Monitor(VMM)</em>
+</p>
+<ul>
+<li>
+There is no requirement for SK to provide VMs which are exact copies of the
+  base hardware(or even for all the VMs to be a like).
+
+<li>
+There is a requirement for SK to provide communications channels between some
+  of its VMs.
+
+</ul>
+
+<h2 id="toc_0.3">Proof of Separability</h2>
+<p>
+The purpose of a separation kernel is to simulate a distributed environment. To
+the software in each regime, the environment provided by a separation kernel
+should be indistinguishable from that of an isolated machine dedicated to its
+private use. This imaginary private machine is called 'abstract machine' for
+that regime, while the single, shared system that is actually available is
+called the 'concrete' machine.  What we desire, for security, is that each
+regime's view of the concrete machine should exactly coincide with its own
+abstract machine.
+</p>
+
+<p>
+There are six conditions for 'Proof of Separability':
+</p>
+<ol>
+<li>
+Regime which is currently 'active' on the concrete machine cannot distinguish
+  its actual environment from that of its abstract machine.
+  That is to say, an action 'COP' operates on the concrete machine will lead to
+  the same result with that action's abstraction operates on the abstract
+  machine. Its idea is similar with the method to verify the correction of a data
+  type.
+
+<li>
+Execution of a concrete operation on behalf of the active regime should not
+  affect the state of the machine perceived by currently 'inactive' regimes.
+  That is to say, the regime will step to the same result no matter what
+  operations the other regimes has done in the period.
+
+<li>
+Because I/O devices can directly observe and change aspects of the concrete
+  machine's internal state(by reading and writing its device registers, for
+  example),and also influence its instruction sequencing mechanism(by raising
+  interrupts), the activity of these devices is relevant to security.
+  Consequently, we must impose conditions on their behaviour.  
+  Assume RED is a regime and REDABS maps concrete state to RED's abstract state.
+
+<ol>
+<li>
+If REDABS(X)=REDABS(Y) and activity by a RED I/O device  changes the state
+    of the concrete machine from X to X', and the same activity will also change
+    it from Y to Y', then REDABS(X')=REDABS(Y')(i.e., state changes in the RED
+    regime caused by RED I/O activity must depend only on the activity itself
+    and the previous state of the RED regime).
+
+<li>
+If activity by a non-RED I/O device changes the state of the concrete
+    machine from X to Y, then REDABS(X)=REDABS(Y)(i.e., non-RED I/O devices
+    cannot change the state of the RED regime).
+
+<li>
+If REDABS(X)=REDABS(Y), the any outputs produced by RED I/O devices must be
+    the same in both cases.
+
+<li>
+If REDABS(X)=REDABS(Y), then the next operations executed on behalf of the
+    RED regime must also be the same in both cases.
+
+</ol>
+</ol>
+
+        </body>
+        
+    </head>
+</html>

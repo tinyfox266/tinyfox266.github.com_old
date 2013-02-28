@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css", href="style.css">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+        <script type="text/javascript" src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+
+        <title>RobustDeclassification</title>
+
+        <body>
+            
+<h3 id="toc_0.0.1">Introduction</h3>
+<p>
+This paper introduces a property to describe what kind of declassification is
+fine. 
+With the corresponding,
+a property called <em>Robust Declassification</em> is proposed.
+<em>Robust Declassification</em> says that 
+an active attacker cannot aquire more information for the program than the 
+passive attacker,
+even if the program contains declassification statement.
+<em>Robust Declassification</em> defines 
+a system is <em>robust</em> with repect to what class of active attackers.
+This paper does not propose a method to enforce <em>Robust Declassification</em>,
+but proves that a secure program(which satisfies the noninterference) 
+satisfies the robust declassification,
+which means that program combined by two secure programs is still secure.
+</p>
+
+
+<h3 id="toc_0.0.2">Some Understanding</h3>
+<p>
+For the example in Sec3,
+the attacker adds some transitions to the system:
+</p>
+\[
+\langle 0,h,p,q,r \rangle 
+\mapsto_A
+\langle 0,h,h,q,r \rangle
+\]
+<p>
+which means that copy the secret \(h\) into the password \(p\).
+The observational equivalence induced on the attacker system 
+\(S'\) 
+</p>
+\[
+\begin{array}{c}
+    \langle t,h,p,q,r \rangle 
+    S'[\approx] 
+    \langle t',h',p',q',r' \rangle \\
+    \Leftrightarrow \\
+    (t=t') \wedge (q=q') \wedge (r=r') \wedge \\
+    (t=0 \Rightarrow p=p' \wedge h=h' \wedge p=h' \wedge h=p')
+\end{array}
+\]
+
+<p>
+The reason why the equivalent condition 
+is 
+</p>
+\[
+    (t=t') \wedge (q=q') \wedge (r=r') \wedge 
+    (t=0 \Rightarrow p=p' \vee h=h' \vee p=h' \vee h=p')
+\]
+<p>
+instead of 
+</p>
+\[
+    (t=t') \wedge (q=q') \wedge (r=r') \wedge 
+    (t=0 \Rightarrow p=p' \wedge h=h')
+\]
+<p>
+is that 
+the attacker cannot judge that 
+whether the secret \(h\) is copied into \(p\).
+</p>
+
+<p>
+Formally,for the nondeterministic system, two runs from \(\sigma_1\)
+and \(\sigma_2\) are equivalent
+iff 
+for the trace \(\tau_1\) starting from \(\sigma_1\),
+there is a trace \(\tau_2\) starting from \(\sigma_2\)
+such that 
+\(\tau_1 \approx \tau_2\)
+and 
+vice versa.
+</p>
+
+<p>
+A more savvy attacker might also toggle \(r\) whether he
+copied \(h\) into \(p\), thus indicating that \(p\) does in fact 
+contain \(h\). This smarter attack adds these transitions:
+</p>
+\[
+\begin{array}{l}
+    \langle 0,h,p,q,0 \rangle
+    \mapsto_A     
+    \langle 0,h,h,q,1 \rangle
+    \\
+    \langle 0,h,p,q,1 \rangle
+    \mapsto_A     
+    \langle 0,h,h,q,0 \rangle
+\end{array}
+\]
+
+<p>
+The equivalence relation induced by \(S'\) now is given by:
+</p>
+\[
+\begin{array}{l}
+    \langle t,h,p,q,r 
+    S[\approx]
+    \langle t',h',p',q',r' \\
+    \Leftrightarrow \\
+    (t=t') \wedge (q=q') \wedge (r=r') \wedge 
+    (t=0 \Rightarrow p=p' \vee h=h')
+
+    
+\end{array}
+\]
+
+<p>
+The attacker can learn more detailed information about 
+\(h\).
+</p>
+<h3 id="toc_0.0.3">The Motivation</h3>
+<p>
+For the program which allows the declassification,
+an passive attacker is allowed to observe 
+some secret information.
+But the declassification mechanism may be abused by the <em>Active attacker</em>.
+</p>
+
+<p>
+<strong>Active Attacks</strong>: attackers are able to change the behavior of the executing
+system. For example, in a system that is a single-computer program, the
+attacker might overwrite memory locations or registers of the machine.
+</p>
+ 
+<p>
+<strong>Passive Attacks</strong>: attacker can make(perhaps limited) observations of the system
+and draw inference from those observations.
+</p>
+
+<p>
+Take the following program,
+</p>
+
+<p>
+if (user = iuser &amp;&amp; passwd = ipasswd) {
+</p>
+<blockquote>
+output_to_public ("login on OK")
+</blockquote>
+<p>
+} else {
+</p>
+<blockquote>
+output_to_public ("login on fail")
+</blockquote>
+<p>
+}
+</p>
+
+<p>
+The program just leak the <em>user</em> and <em>passwd</em> to the public.
+But if the attacker(<em>Active Attacker</em>) can change the state of the program.
+for example, add the statement <em>passwd:=h</em> where \(h\) is secret.
+Then some information about \(h\) is leaked.
+</p>
+
+<p>
+The goal for the <em>Robust Declassification</em> is to ensure that 
+an active attacker cannot get more information than the 
+passive attacker.
+</p>
+
+
+<h3 id="toc_0.0.4">About Declassification</h3>
+<p>
+The starting point for the notion of declassification is that any system that leaks
+information -- any system that does not satisfy \(SP(\approx)\) -- can be thought
+of as containing declassifications.
+A passive attacker may be able to learn some information by observing the system
+but, by assumption, that information leakage is allowed by the security policy.
+</p>
+
+        </body>
+        
+    </head>
+</html>

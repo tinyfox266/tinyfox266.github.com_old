@@ -1,12 +1,11 @@
 
-http://tinyfox266.github.com/index.html
-http://tinyfox266.github.com/archive.html
-http://tinyfox266.github.com/pages.html
-http://tinyfox266.github.com/categories.html
-http://tinyfox266.github.com/atom.xml
-http://tinyfox266.github.com/sitemap.txt
-http://tinyfox266.github.com/tags.html
+http://username.github.com/index.html
+http://username.github.com/rss.xml
+http://username.github.com/archive.html
+http://username.github.com/pages.html
+http://username.github.com/categories.html
+http://username.github.com/atom.xml
+http://username.github.com/sitemap.txt
+http://username.github.com/tags.html
 
-http://tinyfox266.github.com/psychology/2012/11/05/HiddenTime1
-http://tinyfox266.github.com/2012/10/30/CommentOnSpiderMan
-http://tinyfox266.github.com/lessons/2011/12/29/jekyll-introduction
+http://username.github.com/lessons/2011/12/29/jekyll-introduction

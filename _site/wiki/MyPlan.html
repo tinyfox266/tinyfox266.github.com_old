@@ -1,12 +1,15 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
-<head>
-<link rel="Stylesheet" type="text/css" href="style.css">
-<title>MyPlan</title>
-<meta http-equiv="Content-Type" content="text/html; charset=latin1">
-</head>
-<body>
+    <head>
+        <link rel="Stylesheet" type="text/css", href="style.css">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+        <script type="text/javascript" src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
 
+        <title>MyPlan</title>
+
+        <body>
+            
 <p>
 2012-11-08 14:30:22
 My purpose is to design some policy to solute the practical problems
@@ -106,31 +109,31 @@ can be as follows:
 </blockquote>
 
 <pre>
-    int card[9];
-    int x;
-    int continue=0;
-    main () {
-        for (int i=0; i&lt;9; i++)
-          card[i] = random(1,13);
-        card[random(0,8)] = 13;
-        for (int i=0; i&lt;9 &amp;&amp; continue; i++) {
-          input x;
-          continue= play(x);
-        }
-    
-    }
-      
-    int play(int i) {
-        if (i &lt;0 || i &gt; 9)
-          return;
-        if (card[i] == 13) {
-          output 'win'
-          return 0;
-        }  else {
-          output card[i];
-          return 1;
-        }
-    }
+              int card[9];
+              int x;
+              int continue=0;
+              main () {
+                  for (int i=0; i&lt;9; i++)
+                    card[i] = random(1,13);
+                  card[random(0,8)] = 13;
+                  for (int i=0; i&lt;9 &amp;&amp; continue; i++) {
+                    input x;
+                    continue= play(x);
+                  }
+              
+              }
+                
+              int play(int i) {
+                  if (i &lt;0 || i &gt; 9)
+                    return;
+                  if (card[i] == 13) {
+                    output 'win'
+                    return 0;
+                  }  else {
+                    output card[i];
+                    return 1;
+                  }
+              }
 </pre>
 
 
@@ -161,5 +164,7 @@ Example
 </ul>
 </ul>
 
-</body>
+        </body>
+        
+    </head>
 </html>

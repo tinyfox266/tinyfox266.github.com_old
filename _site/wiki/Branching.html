@@ -1,12 +1,15 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
-<head>
-<link rel="Stylesheet" type="text/css" href="style.css">
-<title>Branching</title>
-<meta http-equiv="Content-Type" content="text/html; charset=latin1">
-</head>
-<body>
+    <head>
+        <link rel="Stylesheet" type="text/css", href="style.css">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+        <script type="text/javascript" src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
 
+        <title>Branching</title>
+
+        <body>
+            
 <h2 id="toc_0.1">The Purpose of Branching</h2>
 <p>
 Say you are working on a paper. You¡¯ve gotten a first draft out, submitted for
@@ -42,11 +45,11 @@ To create a branch, say your repository looks like this:
 </p>
 
 <pre>
-(A) &lt;-- (B) &lt;-- (C)
-                 |
-               master
-                 |
-                HEAD
+    (A) &lt;-- (B) &lt;-- (C)
+                     |
+                   master
+                     |
+                    HEAD
 </pre>
     
 <p>
@@ -72,12 +75,12 @@ Now our commit tree looks liks this:
 </p>
 
 <pre>
-(A) &lt;-- (B) &lt;------(C)
-         |          |
-     fix-headers  master
-                    |
-                  HEAD
-         
+    (A) &lt;-- (B) &lt;------(C)
+             |          |
+         fix-headers  master
+                        |
+                      HEAD
+             
 </pre>
 
 <h2 id="toc_0.3">Switching Between Branches</h2>
@@ -115,13 +118,13 @@ commit the changes as above. The resulting repository looks like this:
 </p>
 
 <pre>
-          &lt;------------------(D)
-         /                    |
-(A) &lt;-- (B) &lt;------(C)        |
-                    |         |
-                  master fix-headers
-                              |
-                             HEAD
+              &lt;------------------(D)
+             /                    |
+    (A) &lt;-- (B) &lt;------(C)        |
+                        |         |
+                      master fix-headers
+                                  |
+                                 HEAD
 </pre>
 
 <h2 id="toc_0.4">Related Commands</h2>
@@ -150,5 +153,7 @@ Other useful commands at this point:
 
 </ul>
 
-</body>
+        </body>
+        
+    </head>
 </html>
