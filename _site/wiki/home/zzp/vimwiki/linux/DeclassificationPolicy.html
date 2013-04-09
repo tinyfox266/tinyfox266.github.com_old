@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../../../../style.css">
+<title>DeclassificationPolicy</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h2 id="toc_0.1">Selective Declassification</h2>
+<p>
+Andrew C.Myers and Barbara Liskov has improved the Decentralized Label Model in
+[1]. The <em>act-for</em> relation is accounted into the relabeling rules.
+</p>
+
+<p>
+The new Relabeling rules:
+</p>
+<ul>
+<li>
+<strong>Adding readers:</strong> for some owner <em>o</em>, if <em>o</em> allows some reader <em>r'</em> that <em>r</em>
+  acts for, then <em>r</em> can be added as a reader for <em>o</em>.
+  This rule makes sense because allowing <em>r'</em> to read allows all principals that
+  act for <em>r'</em> to read.
+
+<li>
+<strong>Replacing owners:</strong> for some owner <em>o</em>, if some principal <em>o'</em> act for <em>o</em>, 
+  then <em>o</em> can be replaced by <em>o'</em>.
+  This rule makes sense because the new label only allows a process that acts
+  for <em>o</em> to declassify it, while the original label allowed processes with 
+  weaker authority to declassify it.
+
+</ul>
+
+<h3 id="toc_0.1.1">Decentalized Label Model</h3>
+<p>
+Every data is associated with a label.
+A label is a set of policy.
+A policy is a pair of a principal(called owner) and a set of principals(called
+readers), such as <em>o:r1,...,rn</em> which means that 
+the policy is owned by <em>o</em> and every data with such a policy can be read only by 
+<em>r1,...,rn</em>. the Policy can only be declassified by its owner.
+A data with label <em>L</em> must obey all the policy specified in <em>L</em>.
+For example, a data with a label {<em>o1:r1,r2, o2:r1,r3</em>}, then the data can only
+read by <em>r1</em>, because only <em>r1</em> is both allowed by the two policy to read the data.
+the first policy <em>o1:r1,r2</em> can be declassified by the process who has the
+authority of <em>o1</em> or some principal <em>o</em> who acts for <em>o1</em>. The second policy 
+<em>o2:r1,r3</em> can be declassified by <em>o2</em> or <em>o'</em> who acts for <em>o2</em>.
+Declassification of a policy means that delete the policy or add readers in the
+policy.
+</p>
+
+<h3 id="toc_0.1.2">Declassification</h3>
+<p>
+The declassification policy in Decentralized Label Model is contained in the
+label associated with the data.
+For example, a data with label {<em>o1:r1,r2 ,o2:r1,r3</em>} can be declassified to the
+label {<em>o2:r1,r3</em>} by the process who has the authority <em>o</em> who can act for
+<em>o1</em> and be declassified to the label {<em>o1:r1,r2</em>}. So one untrusted process can
+not declassify the data inappropriately.
+The declassification of a data is controlled.
+</p>
+
+<h2 id="toc_0.2">Trusted Declassification</h2>
+<p>
+Trusted Declassification is proposed by Boniface etc<sup><small>[2]</small></sup>.
+The basic idea is that the secret data can be declassified by only specified
+functions(methods).
+</p>
+
+<p>
+Take the <em>password checking</em> example:
+</p>
+<pre>
+    int check(ipwd) {
+        if (password == ipwd)
+        then return 1;
+        else return 0;
+    }
+</pre>
+
+<p>
+The data <em>password</em> is the secret data.
+But the function <em>check</em> should release one bit of the  <em>password</em>.
+So in the policy,we can allow <em>check</em> declassify  the data <em>password</em>,
+and don't allow any others. 
+</p>
+
+<p>
+Suppose <em>password</em> is owned by Alice, then the policy can be written as 
+</p>
+<blockquote>
+<code>Alice allows check(public)</code>
+</blockquote>
+    
+<p>
+which means that Alice allows the function <em>check</em> to declassify her private
+data to public.
+</p>
+
+<p>
+Formally, the policy is defined as 
+</p>
+
+\[
+\begin{array}{llll}
+\mbox{principal}   &amp; p 
+    &amp; ::= &amp; \mbox{alice} ~|~ \mbox{bob} ~|~ \dots  \\
+    
+\mbox{declassfier} &amp; D 
+    &amp; ::= &amp; \mbox{method1} ~|~ \mbox{method2} ~|~ \dots \\
+    
+\mbox{delegation}  &amp; \textit{Del} 
+    &amp; ::= &amp; p \rightarrow p \\
+    
+\mbox{trust stmt}  &amp; \textit{Allow} 
+    &amp; ::= &amp; p  \mbox{ allows } D(p) ~|~ p \mbox{ allows None}  \\
+    
+\mbox{policy stmts}&amp; \textit{Stmt} 
+    &amp; ::= &amp; (\textit{Del} ~|~ \textit{Allow})*
+\end{array}
+\]
+
+<p>
+<em>trust stmt</em> is the declassification policy, to specify whose data can be
+declassified by which methods.
+<em>delegation</em> is the delegation policy(act-for relation), for example 
+if <em>Alice -&gt; Bob</em> turn off in the policy, then <em>Bob</em> can read all data of <em>Alice</em>.
+</p>
+
+<hr />
+<h3 id="toc_0.2.1">Reference</h3>
+<ul>
+<li>
+<a href="file:///home/zzp/vimwiki/linux/home/zzp/vimwiki/linux/papers/sp98.pdf ">Complete,Safe Information Flow with Decentralized Labels</a><br>
+  Andrew C. Myers and Barbara Liskov.<br>
+  In <em>19th IEEE Symposium on Research in Security and Privacy (<strong>RSP</strong>)</em> 
+  , Oakland, California, May 1998.
+
+<li>
+<a href="file:///home/zzp/vimwiki/linux/home/zzp/vimwiki/linux/papers/plas06.pdf ">Trusted Declassification:High-level policy for a security-typed language</a> <br>
+  Boniface Hicks, Dave King, Patrick Mcdaniel, and Michael Hicks.<br>
+  In <em>ACM SIGPLAN Workshop on Programming Languages and Analysis for Security</em>
+  , Ottawa, Canada, June 10 2006.
+
+</ul>
+
+</body>
+</html>

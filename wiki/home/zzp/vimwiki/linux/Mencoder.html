@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../../../../style.css">
+<title>Mencoder</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<ul>
+<li>
+flv to mp3<br>
+    <code>mencoder -oac mp3lame -ovc copy -of rawaudio -o &lt;file.mp3&gt; &lt;file.flv&gt;</code> 
+
+</ul>
+    
+<ul>
+<li>
+combine flvs<br>
+    <code>mencoder -oac pcm -ovc copy -idx -o &lt;file.flv&gt; &lt;flv_to_be_combined&gt;</code> 
+
+</ul>
+    
+<ul>
+<li>
+extract audio from video    
+    <code>mencoder -oac mp3lame -ovc frameno -ss &lt;starttime&gt; -endpos &lt;endtime&gt; -o &lt;output.mp3&gt; -of rawaudio &lt;input_videos&gt;</code>
+
+<li>
+extract one part from the video  
+    <code>mencoder -oac mp3lame -ovc lavc -ss &lt;starttime&gt; -endpos &lt;endtime&gt; -o &lt;output&gt; &lt;input_videos&gt;</code> 
+
+</ul>
+
+</body>
+</html>

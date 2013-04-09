@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../../../../style.css">
+<title>Collaborating</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h2 id="toc_0.1">Working with Other Repositories</h2>
+<p>
+A key feature of Git is that the repository is stored alongside the working
+copies of the files themselves. This has the advantage that the repository
+stores the entire history of the project, and Git can function without needing
+to connect to an external server.
+</p>
+
+<h2 id="toc_0.2">Distributed Version Control</h2>
+<p>
+Say you and your friend want to work on the same paper. Your friend already has
+done some work on it. There are three tasks you need to figure out to do so:
+</p>
+
+<ul>
+<li>
+How to get from your friend a copy of the work to date.
+
+<li>
+How to get the changes your friend makes into your own repository.
+
+<li>
+How to let your friend know about changes you make.
+
+</ul>
+
+<h2 id="toc_0.3">Copying the Repository</h2>
+<p>
+To make a copy of your friend's repository for your own use, run 
+<code>git clone [remote-specification]</code>.
+</p>
+
+<p>
+The <em>[remote-specification]</em> identifies the location of your friend's repository,
+and it can be as simple as another folder on the filesystem. Where your friend's
+repository is accessible by a network protocol such as ssh, Git refers to the
+repository by a URL-like name, such as <code>ssh://server/repository</code>.
+</p>
+
+<p>
+For example, if your friend's repository is located in ~/jdoe/project, you would
+run:
+</p>
+
+<p>
+<code>git clone ~/jdoe/project</code>
+</p>
+
+<p>
+This would do the following:
+</p>
+
+<ul>
+<li>
+Create a directory <em>project</em> and initialize a repository in it.
+
+<li>
+Copy all the commit objects and head references from the project into the new
+  repository.
+
+<li>
+Add a <strong>remote repository reference</strong> named <em>origin</em> to the new repository, and
+  associate origin with <code>~/jdoe/project</code> as described below. (Like <em>master</em>, <em>origin</em> is
+  a default name used by Git.)
+
+<li>
+Add <strong>remote heads</strong> named <em>origin/[head-name]</em> that correspond to the heads in the
+  remote repository.
+
+<li>
+Set up one head in the repository to <strong>track</strong> the corresponding
+  <em>origin/[current-head-name]</em> head, namely the one that was currently active in the
+  repository being cloned.
+
+</ul>
+  
+<p>
+A branch that <strong>tracks</strong> a remote branch retains an internal reference to the
+</p>
+
+<p>
+If you would like to work with the <em>origin/feature</em> remote branch locally, you
+should manually set up a tracking branch. This is done with the following
+command:
+</p>
+
+<p>
+<code>git branch --track [new-local-branch] [remote-branch] remote branch</code>
+</p>
+
+<h2 id="toc_0.4">Receiving Changes from the Remote Repository</h2>
+<p>
+After you have cloned the repository, your friend adds new commits to his
+repository. How do you get copies of those changes?
+</p>
+
+<p>
+The command <code>git fetch [remote-repository-reference]</code> retrieves the new commit
+objects in your friend's repository and creates and/or updates the remote
+heads accordingly. By default, <em>[remote-repository-reference]</em> is <em>origin</em>.
+</p>
+
+<p>
+Note that your own heads are unaffected. The only difference is that the
+remote heads, those starting with ¡°origin/¡±, are updated, and the new commit
+objects have been added to the repository.
+</p>
+
+<p>
+Now, you want to update your master and feature heads to reflect your friend's
+changes. This is done with a merge, usually done with git pull. The general
+syntax is:
+</p>
+
+<p>
+<code>git pull [remote-repository-reference] [remote-head-name]</code>
+</p>
+
+<p>
+This will merge the head named
+<em>[remote-repository-reference]/[remote-head-name]</em> into <em>HEAD</em>.
+</p>
+
+<h2 id="toc_0.5">Sending Changes to the Remote Repository</h2>
+<p>
+Now, say that you make changes to your own repository. You want to send these
+changes to your friend's repository.
+</p>
+
+<p>
+The command <code>git push</code>, logically doing the opposite of pull, sends data to the
+remote server. Its full syntax is:
+</p>
+
+<p>
+<code>git push [remote-repository-reference] [remote-head-name]</code>
+</p>
+
+<p>
+When this command is called, Git directs the remote repository to do the
+following:
+</p>
+
+<ul>
+<li>
+ Add new commit objects sent by the pushing repository.
+
+<li>
+ Set <em>[remote-head-name]</em> to point to the same commit that it points to on the
+  pushing repository.
+
+</ul>
+  
+<p>
+On the sending repository, Git also updates the corresponding remote head
+reference.
+</p>
+
+<p>
+If no arguments are given to <code>git push</code>, it will push all the branches in the
+repository that are set up for tracking.
+</p>
+
+</body>
+</html>

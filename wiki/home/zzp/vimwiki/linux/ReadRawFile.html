@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../../../../style.css">
+<title>ReadRawFile</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<pre>
+    package com.javasamples;
+
+    //reading an embedded RAW data file
+
+    import android.app.Activity;
+    import android.os.Bundle;
+    import android.widget.Toast;
+    import java.io.*;
+
+    public class FileDemo1 extends Activity {
+        
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        try {
+            PlayWithRawFiles();
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), 
+                         "Problems: " + e.getMessage(), 1).show();
+        }
+    }// onCreate
+
+    public void PlayWithRawFiles() throws IOException {      
+        String str="";
+        StringBuffer buf = new StringBuffer();          
+        InputStream is = this.getResources().openRawResource(R.drawable.my_base_data);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        if (is!=null) {                         
+            while ((str = reader.readLine()) != null) { 
+                buf.append(str + "\n" );
+            }               
+        }       
+        is.close(); 
+        Toast.makeText(getBaseContext(), 
+                buf.toString(), Toast.LENGTH_LONG).show();              
+            
+
+    }// PlayWithSDFiles
+
+    } // FilesDemo4
+</pre>
+
+</body>
+</html>

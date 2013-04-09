@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../../../../style.css">
+<title>Repositories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h2 id="toc_0.1">Repositoriy Contents</h2>
+<p>
+A git <strong>repository</strong> contains, among other things, the following:
+</p>
+<ul>
+<li>
+A set of <strong>commit objects</strong>
+
+<li>
+A set of references to commit objects, called <strong>heads</strong>
+
+</ul>
+
+<h2 id="toc_0.2">Commit Objects</h2>
+<p>
+A <strong>commit object</strong> contains three things:
+</p>
+<ul>
+<li>
+A set of <strong>files</strong>, reflecting the state of the project at a given point in
+      time.
+
+<li>
+References to <strong>parent commit objects</strong>.
+
+<li>
+An <strong>SHA1 name</strong>, a 40-character string that uniquely identifies the commit
+      object. The name is composed of a hash relevant aspects of the commit, so
+      identical commits will always have the same name.
+
+</ul>
+
+<h2 id="toc_0.3">Heads</h2>
+<p>
+A <strong>head</strong> is simply a reference to a commit object. Each head has a name. By
+default, there is a head in every repository called <strong>master</strong>. A repository can
+contain any number of heads. At any given time, one head is selected as the
+"current head". This head is aliased to <em>HEAD</em>, always in capitals.
+</p>
+
+<p>
+Note this difference: a "head" (lowercase) refers to any one of the named heads
+in repository; "HEAD" (uppercase) refers exclusively to the current active head.
+</p>
+
+<h2 id="toc_0.4">A Simple Repositoriy</h2>
+<p>
+To create a repository:
+</p>
+<ul>
+<li>
+<code>git init</code>
+
+</ul>
+
+<p>
+To create a commit
+</p>
+<ul>
+<li>
+Tell Git which files to include in the commit, with <code>git add</code>. If a file
+      has not changed since the previous commit (the "parent" commit), Git will
+      automatically include it in the commit you are about to perform. Thus, you
+      only need to add files that you have added or modified. Note that it adds
+      directories recursively, so <code>git add .</code> will add everything that has
+      changed.
+
+<li>
+Call <code>git commit</code> to create the commit object. The new commit object will
+      have the current <em>HEAD</em> as its parent (and then, after the commit is
+      complete, <em>HEAD</em> will point to the new commit object).
+
+</ul>
+      
+<p>
+ As a shortcut, <code>git commit -a</code>  will automatically add all modified files
+ (but not new ones).
+</p>
+ 
+<p>
+ Other commands that are useful at this point:
+</p>
+<ul>
+<li>
+<code>git log</code> shows a log of all commits starting from <em>HEAD</em> back to the
+      initial commit
+
+<li>
+<code>git status</code> shows which files have changed between the current project
+      state and <em>HEAD</em>. Files are put in one of three categories: new files that
+      haven't been added (with <code>git add</code>), modified files that haven't been
+      added, and files that have been added
+
+<li>
+<code>git diff</code> shows the diff between <em>HEAD</em> and the current project state.
+      With the <code>--cached</code> option it compares added files against <em>HEAD</em>;
+      otherwise it compares files not yet added.
+
+<li>
+<code>git mv</code> and <code>git rm</code> mark files to be moved (rename) and removed,
+      respectively, much like <code>git add</code>.
+
+</ul>
+      
+
+<p>
+My personal workflow usually looks like:
+</p>
+<ul>
+<li>
+Do some programming.
+
+<li>
+<code>git status</code> to see what files I changed.
+
+<li>
+<code>git diff [file]</code> to see exactly what I modified.
+
+<li>
+<code>git commit -a -m [message]</code> to commit
+
+</ul>
+
+<h2 id="toc_0.5">Refering to a Commit</h2>
+<p>
+Now that you¡¯ve created commits, how do you refer to a specific commit? Git
+provides many ways to do so. Here are a few:
+</p>
+<ul>
+<li>
+By its SHA1 name, which you can get from <code>git log</code>.
+
+<li>
+By the first few characters of its SHA1 name.
+
+<li>
+By a head. For example, HEAD refers to the commit object referenced by <em>HEAD</em>. 
+      You can also use the name, such as <code>master</code>.
+
+<li>
+Relative to a commit. Putting a caret (^) after a commit name retrieves the
+      parent of that commit. For example, HEAD^ is the parent of the current head
+      commit.
+
+</ul>
+
+</body>
+</html>

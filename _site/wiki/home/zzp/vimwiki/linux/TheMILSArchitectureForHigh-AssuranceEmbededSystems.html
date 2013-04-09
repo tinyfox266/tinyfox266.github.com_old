@@ -1,0 +1,312 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../../../../style.css">
+<title>TheMILSArchitectureForHigh-AssuranceEmbededSystems</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+MILS approach is based on the concept of separation, as introduced by Rushby.
+Through separation, we can develop a hierarchy of security services, where each
+level uses the security services of a lower level to provide a new security
+functionality that then can be used by higher levels. Each level is responsible
+for its own security domain and nothing else.
+Limiting the scope and complexity of the security mechanisms provides us with
+manageable and more importantly, evaluable implementations. General user
+applications can then execute, untrusted, isolated from each other except
+through communication channels managed by these security services.
+</p>
+
+<h2 id="toc_0.1">MILS Architecture</h2>
+<p>
+In the past, secure systems were designed with the concept of a security kernel
+and a Trusted Computing Base(TCB). The key concept behind this approach is that
+the security decisions and the security enforcement mechanisms are an integral
+part of the TCB. Following this design paradigm, development teams found that
+more and more of their system functionality was being included in the TCB. Once
+this occurred, the evaluation of system security became unmanageable.
+</p>
+
+<p>
+Within the MILS architecture, application layer entities are provided with the
+mechanisms to control, manage and enforce their own application level security
+policies in a manner that ensures that the enforcement mechanisms are always
+invoked, non-bypassable, tamperproof and evaluatable. At this level we have
+trusted application-level security services and untrusted applications.
+The MILS architecture assumes certifiable trust within the microprocessor,
+separation kernel, middleware services layer, and for the application-level
+security services.
+</p>
+
+<p>
+At the application layer, execution is confined to the application partition,
+with limited communication to other partitions. All communication is monitored
+by the certified application layer security services and lower processing levels.
+Applications are assumed to be rogue and are confined to operating within their
+partition resources, with finite boundaries of space and time.
+</p>
+
+<h3 id="toc_0.1.1">MILS, MLS, MSLS and SLS</h3>
+<p>
+The problem with full MLS systems is that they must be rigorously analyzed for
+security before they can be certified. Every portion of the MLS system must be
+analyzed to ensure that it properly handles labelled data and that there is no
+possible violation of the security policy. Even with a TCB architecture, or
+reference monitor, in place, there is often too much to evaluate.
+</p>
+
+<p>
+The MILS architecture was developed to resolve the difficulty of certification
+of MLS systems, by separating out the security mechanisms and concerns into
+manageable components. These components are classified based on the way they
+process data:
+</p>
+<ul>
+<li>
+<strong>SLS</strong> Single-Level Secure component that only processes data at one security
+  level.
+
+<li>
+<strong>MSLS</strong> Multiple Single-Level Secure component that processes data at multiple
+  security levels, but always maintains separations between classes of data. A
+  device that processes messages one at a time(such as an I/O device driver) may
+  be such a device.
+
+<li>
+<strong>MLS</strong> Multi-level Secure components that co-mingle data at different security
+  levels. Typically this is a device that will downgrade information from a
+  higher level of security to a lower level through either filtering or the
+  application of encryption technology.
+
+</ul>
+  
+<p>
+A MILS system isolates processes into partitions, which define a collection of
+data objects, code and system resources.
+These individual partitions can be evaluated separately, if the MILS
+architecture is implemented correctly. This divide and conquer approach will
+exponentially reduce the proof effort for secure systems. To support these
+partitions the MILS architecture is divided into layers.
+</p>
+
+<h3 id="toc_0.1.2">System Architecture View</h3>
+
+<h3 id="toc_0.1.3">MILS Separation Kernel(SK)</h3>
+<p>
+The partitioner(separation kernel) layer is the base layer of the system, and is
+responsible for enforcing data separation and information flow controls within a
+single microprocessor; providing both time and space partitioning. This layer
+provides only a few base security mechanisms, keeping security mechanisms as
+simple as possible. The complexity of the partitioner is low enough that it can
+even be implemented in the microcode of a partitioning microprocessor. The
+partitioner provides for the following:
+</p>
+<ol>
+<li>
+<strong>Data Separation</strong>. The memory address spaces, or objects, of a partition must
+  be completely independent of other partitions. The act of accessing an object
+  by an executing partition must not affect the state of other partitions, and
+  an executing partition must not be affected by the state of any other
+  partition or partition's objects.
+
+<li>
+<strong>Information Flow</strong>. This requirement is a modification of data separation.
+  Although pure data separation would be easier to verify, it is not practical.
+  There is a definite need for partitions to communicate with each other.
+  However, for secure systems, we need to be able to define the authorized
+  communication channels between partitions. The SK will define precise
+  moderated mechanisms for inner-partition communication. Only through these
+  mechanisms may pure data separation be violated.
+
+<li>
+<strong>Sanitization</strong>. To ensure the information flow requirement, the SK is
+  responsible for cleaning any shared resources(microprocessor registers, system
+  buffers, etc.) before a process in a new partition can use them.
+
+<li>
+<strong>Damage Limitation</strong>. The consequences of a fault or security breach into one
+  partition are limited by the data separation mechanisms. Addresses spaces of
+  partitions are separate, and as such, an errant process in one partition can
+  not affect processes in other partitions. The SK will also enforce bounds on
+  shared resource, providing guaranteed minimum processing time, memory and
+  other resources to the partitions as well as enforcing maximum usage of these
+  resources.
+
+</ol>
+  
+<p>
+In addition, the partitioner must be always invoked, non-bypassable, tamperproof
+and evaluatable. In the MILS architecture, the partitioner is responsible for
+timesharing the microprocessor between the partitions, and this function cannot
+be stopped.
+</p>
+
+<h3 id="toc_0.1.4">MILS Hardware Support</h3>
+<p>
+A system built on the concept of separation requires a certain amount of
+hardware support for the SK to work correctly.
+According to the SKPP and ARINC-653,
+the hardware support for a SK includes:
+</p>
+<ul>
+<li>
+<strong>Processing Power</strong>. For any system, but especially real-time systems, the
+  processor must  have sufficient computing capacity to meet the worst-case
+  timing requirements of the system.
+
+<li>
+<strong>Atomicity</strong>. The processor must provide atomic operations for implementing
+  processing control constructs, such as partition swaps and memory map changes.
+
+<li>
+<strong>Privileged mode of operation</strong>. There will be some privileged instructions
+  that must only be executed by the SK.
+
+<li>
+<strong>Memory Management Unit(MMU)</strong>: The MMU provides separation of address spaces
+  between the partitions. Without hardware support for separation, there can be
+  no data isolation or damage limitation. The processor must have access to the
+  required memory resources and provide the SK with the ability to restrict
+  partition access to memory.
+
+<li>
+<strong>Instruction Traps</strong>. The processor must have some mechanism to transfer
+  control to the SK if a partition attempts to execute a privileged or invalid
+  operation.
+
+<li>
+<strong>Timing Control</strong>. The processor must provide the SK with the ability to
+  control and restrict the execution time of partitions; and therefore must have
+  access to timing resources which provide a non-bypassable way of ensuring
+  control is returned to the SK after some elapse of time.
+
+<li>
+<strong>I/O Access Limitation</strong>. The processor must provide a mechanism for
+  restricting access to I/O devices to specific partitions; and therefore have
+  access to required I/O resources.
+
+</ul>
+  
+<h3 id="toc_0.1.5">MILS Devices Drivers</h3>
+<p>
+The MILS architecture requires that the SK remains small, to ensure that it can
+be fully evaluated. This means that services typically included in the operating
+system must now be included in the address space of the individual partitions,
+or delegated to separate "shared" partitions, with communications between
+partitions mediated by the SK policy. Device drivers for shared devices fall
+into this later category.
+</p>
+
+<h3 id="toc_0.1.6">Distributed MILS</h3>
+<p>
+To improve performance, individual partitions within enclaves can be mapped to
+separate processors. An enclave is a group of partitions that are running at the
+same classification level. To provide  MILS separation, this requires support at
+many levels. Of the four requirements of MILS systems, data separation, damage
+limitation and sanitization are no longer of concern between partitions on
+separate processors since there are no shared resources between these
+partitions. However, information flow controls must still be forced.
+</p>
+
+<p>
+Support for a distributed MILS system requires that the communication between
+processors be managed by the MILS system. If the inter-processor communication
+medium is open(i.e., accessible by non MILS managed components), then the
+communication must be cryptographically protected. However, if the medium is
+closed, then it may be possible to avoid the expense of encryption.
+</p>
+
+<h3 id="toc_0.1.7">Middleware Services Layer</h3>
+<p>
+The middleware services layer provides for an extended scope of the separation
+concepts introduced by the partitioner. These services are dependent upon the
+needs of the specific and are not constrained by the MILS architecture. They can
+include services such as resource allocation of shared data storage devices,
+object-oriented inter-partition communication, communication services between
+partitions on multiple processors, or real-time data distribution services.
+Middleware services are concerned about end-to-end data processing, and not just
+the single microprocessor data processing of the partitioner. At the middleware
+layer, we begin to enforce the more traditional concepts of information flow.
+Each partition/address space in the system, no matter which microprocessor it is
+resident on, has a unique security label/classification. The system architect
+uses these labels to define the authorized communication between components.
+The labeling of the partitions and communication channels is used to satisfy the
+security policy. The middleware level is responsible for ensuring end-to-end
+security, through the following:
+</p>
+<ol>
+<li>
+<strong>Labelling</strong>. The middleware layer must ensure that messages sent between
+  individual partitions are correctly labelled with the sender's security
+  classification and unique identity.
+
+<li>
+<strong>Filtering</strong>. The middleware layer is responsible for filtering out any
+  messages that are appropriately labelled before delivering them to the
+  recipient(such as encryption).
+
+<li>
+<strong>Maintaining Information Flow Controls</strong>. The system architect designs the
+  system with specific authorized information flow restrictions, and it is these
+  restrictions that the middleware layer enforces.
+
+</ol>
+
+<p>
+At the middleware layer, we can introduce the concept of <em>authorized information flow</em>.
+If the system architect designs the system so that two partitions can
+communicate, then information flow between these partitions is authorized. This
+is true even if the two partitions are labelled with different security
+classifications. Middleware services provide secure information flows between
+partition flows between partitions, typically via protocol-specific labelling
+and filtering. 
+</p>
+
+<p>
+A system can be designed to be a collection of isolated enclaves, where
+partitions exist within a single enclave and there is no information flow
+between enclaves. 
+</p>
+
+<h2 id="toc_0.2">A Secure System Using MILS</h2>
+<p>
+If partition A in Enclave 2 wishes to send a message to partition B in Enclave
+1, we need to be sure that the message sent does not violate the security
+policy. There are two scenarios we need to investigate:
+</p>
+<ol>
+<li>
+A \(\leq\) B. In  this configuration, the security level of A is less than that of
+  B. In other words, information is permitted to flow freely from A to B. Since
+  the MILS system enforces information flow policies dictated by the system
+  configuration, this flow is controlled by the SK and the Distributed MILS
+  system.
+
+<li>
+A \(\na\). In this configuration, the security of A is not less than the
+  security level of B. Now, information is not permitted to flow freely from A
+  to B. Given this restriction we have two choices:
+
+<ul>
+<li>
+The first is that A has been evaluated and certified to be <em>trustworthy</em>.
+    This means that it has been shown that any information A does send to B is
+    not in violation of the security policy, For example, A could  be a
+    cryptographic engine which is certified to encrypt any messages it sends to
+    B.
+
+<li>
+The second is when A is not trustworthy. In this case we need a trusted
+    intermediary(a guard) to control information flow from A to B. This guard is
+    a trustworthy application which is responsible for analyzing the content of
+    the communication is in accordance with the system security policy. The
+    guard has the ability to modify the contents of the message, delete the
+    message or send a constructed response back through the MMR. 
+
+</ul>
+</ol>
+
+</body>
+</html>

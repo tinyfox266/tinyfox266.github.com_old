@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../../../../style.css">
+<title>Merging</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h2 id="toc_0.1">Merging</h2>
+<p>
+After you have finished implementing a new feature on a branch, you want to
+bring that new feature into the main branch, so that everyone can use it. You
+can do so with the git merge or git pull command.
+</p>
+
+<p>
+The syntax for the commands is as follows:
+</p>
+<ul>
+<li>
+<code>git merge [head]</code>
+
+<li>
+<code>git pull . [head]</code>
+
+</ul>
+     
+<p>
+They are identical in result. (Though the <code>merge</code> form seems simpler for now, the
+reason for the <code>pull</code> form will become apparent when discussing multiple
+developers.)
+</p>
+
+<p>
+These commands perform the following operations. Let the current head be called
+<code>current</code>, and the head to be merged called <code>merge</code>.
+</p>
+<ul>
+<li>
+Identify the common ancestor of <em>current</em> and <em>merge</em>. Call it <em>ancestor-commit</em>.
+
+<li>
+Deal with the easy cases. If the <em>ancestor-commit</em> equals <em>merge</em>, then do 
+      nothing. If <em>ancestor-commit</em> equals <em>current</em>, then do a 
+      <strong>fast forward merge</strong>.
+
+<li>
+Otherwise, determine the changes between the <em>ancestor-commit</em> and <em>merge</em>.
+
+<li>
+Attempt to merge those changes into the files in <em>current</em>.
+
+<li>
+If there were no conflicts, create a new commit, with two parents, <em>current</em> and
+      <em>merge</em>. Set <em>current</em> (and <em>HEAD</em>) to point to this new commit, and update the
+      working files for the project accordingly.
+
+<li>
+If there was a conflict, insert appropriate conflict markers and inform the
+      user. No commit is created.
+
+</ul>
+      
+<p>
+<strong>Important note</strong>: Git can get very confused if there are uncommitted changes in
+the files when you ask it to perform a merge. So make sure to commit whatever
+changes you have made so far before you merge.
+</p>
+
+<p>
+So, to complete the above example, say you check out the <em>master</em> head again and
+finish writing up the new data for your paper. Now you want to bring in those
+changes you made to the headers.
+</p>
+
+<p>
+You would run:
+</p>
+<blockquote>
+<code>git merge fix-headers</code>
+</blockquote>
+    
+<p>
+If there are no conflicts, the resulting repository looks like this:
+</p>
+
+<pre>
+              &lt;-----------------(D)-------
+             /                   |         \
+    (A) &lt;-- (B) &lt;------(C) &lt;-------------- (E)
+                                 |          |
+                             fix-headers  master
+                                            |
+                                           HEAD
+
+</pre>
+
+<p>
+<strong>Note on terminology</strong>: When I say ¡°merge head A <em>into</em> head B,¡± I mean that head B
+is the current head, and you are drawing changes from head A into it. Head B
+gets updated; nothing is done to head A. (If you replace the word ¡°merge¡± with
+the word ¡°pull,¡± it may make more sense.)
+</p>
+
+<h2 id="toc_0.2">Resolving Conflicts</h2>
+
+<p>
+A conflict arises if the commit to be merged in has a change in one place, and
+the current commit has a change in the same place. Git has no way of telling
+which change should take precedence.
+</p>
+
+<p>
+To resolve the commit, edit the files to fix the conflicting changes. Then run
+<code>git add</code> to add the resolved files, and run <code>git commit</code> to commit the repaired
+merge. Git remembers that you were in the middle of a merge, so it sets the
+parents of the commit correctly.
+</p>
+
+<p>
+A fast forward merge is a simple optimization for merging. Say your repository looks like this:
+</p>
+
+<pre>
+                    +-- (D) -- (E)
+                   /            |
+    (A) -- (B) -- (C)           |
+                   |            |
+                current     to-merge
+                   |
+                  HEAD
+
+</pre>
+
+<p>
+and you run <code>git merge to-merge</code>. In this case, all Git needs to do is set <em>current</em> to point to (E). Since (C) is the common ancestor, there are no changes to actually ¡°merge.¡±
+</p>
+
+<p>
+Hence, the resulting merged repository looks like:
+</p>
+
+<pre>
+                    +-- (D) -- (E)
+                   /            |
+    (A) -- (B) -- (C)           |
+                                |
+                        to-merge, current
+                                     |
+                                    HEAD
+</pre>
+
+<p>
+That is, <em>to-merge</em> and <em>current</em> both point to commit (E), and HEAD still points to <em>current</em>.
+</p>
+
+<p>
+Note an important difference: no new commit object is created for the merge. Git only shifts the head pointers around.
+</p>
+
+<h2 id="toc_0.3">Common Merge Use Patterns</h2>
+
+<p>
+There are two common reasons to merge two branches:
+</p>
+<ul>
+<li>
+draw the changes from a new feature branch into the main branch.
+
+<li>
+draw the main branch into a feature branch you are developing.
+
+</ul>
+
+<h2 id="toc_0.4">Deleting a Branch</h2>
+<p>
+To delete a branch, use <code>git branch -d [head]</code>. This simply removes the
+specified head from the repository¡¯s list of heads.
+</p>
+
+<p>
+<strong>Important note</strong>: git branch -d will cause an error if the branch to be deleted is
+not reachable from another head. 
+</p>
+
+<p>
+Git does allow you to use the <code>-D</code> option to force deletion of a branch that would
+create a dangling commit. However, it should be a rare situation that you want
+to do that. <strong>Think very carefully</strong> before using <code>git branch -D</code>.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../../../../style.css">
+<title>WhyNotNoninterference</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+Security properties based on information flow, such as noninterference, provide
+strong guarantees that confidentiality and integrity are maintained. However,
+there are several reasons why strict noninterference as a security policy may be
+undesirable:
+</p>
+<ul>
+<li>
+Sometimes the required policy intentionally permits some amount of
+      information flow -- confidentiality may conditionally depend on some other
+      factors. For example, Alice may be willing to release her private data to 
+      Bob after he pays for it, but not otherwise.
+
+<li>
+The policy may require that information be kept secret for only some fixed
+      duration. For example, an on-line auction service must release the value
+      of the winning bid after the auction closes.
+
+<li>
+The rate at which information is intentionally leaked may be considered
+      too slow to pose a security threat. For example, a password-checking
+      function of an operating system manages on confidential passwords, but
+      even denying access reveals tiny amounts of information about the correct
+      password.
+
+<li>
+Noninterference is the desired policy, but the program analysis is not
+      able to justify the security of some operations. For example, the
+      encryption function of a cryptographic library takes confidential data and
+      makes it public, but the justification that this is secure lies outside
+      the analysis of the security type system.
+
+</ul>
+
+</body>
+</html>

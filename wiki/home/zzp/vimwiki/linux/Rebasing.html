@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../../../../style.css">
+<title>Rebasing</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h2 id="toc_0.1">Rebasing</h2>
+<p>
+Git offers a unique feature called <code>rebasing</code> as an alternative to merging. Its
+syntax is:
+</p>
+<blockquote>
+<code>git rebase [new commit]</code>
+</blockquote>
+    
+<p>
+When run, Git performs the following steps:
+</p>
+
+<ul>
+<li>
+Identifies each commit that is an ancestor of the current commit but not of
+  [new-commit]. This can be thought of as a two-step process: first, find the
+  common ancestor of [new-commit] and the current commit; call this the 
+  <em>ancestor commit</em>. Second, collect all the commits between the ancestor commit and the
+  current commit.
+
+<li>
+Determines what changed for each of those commits, and puts those changes aside.
+
+<li>
+Sets the current head to point to [new-commit].
+
+<li>
+For each of the changes set aside, replays that change onto the current head and
+  creates a new commit.
+
+</ul>
+
+</body>
+</html>

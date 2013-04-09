@@ -1,0 +1,459 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../../../../style.css">
+<title>ComputerSystemSecurityByDavidMazieres</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h2 id="toc_0.1">Definitions</h2>
+<ul>
+<li>
+Security:
+
+</ul>
+<blockquote>
+Techniquies to control who can access/modify system
+</blockquote>
+
+<ul>
+<li>
+Principal:
+
+</ul>
+<blockquote>
+Unit of accountability in a sytem (e.g., a user)
+</blockquote>
+
+<ul>
+<li>
+Access Control:
+
+</ul>
+<blockquote>
+Techniquies to restrict operations to certain principals
+</blockquote>
+
+<ul>
+<li>
+Authentication:
+
+</ul>
+<blockquote>
+Verification of the identity of the principle making a request
+</blockquote>
+
+<ul>
+<li>
+Authorization:
+
+</ul>
+<blockquote>
+The granting of a request to a principal
+</blockquote>
+    
+<h2 id="toc_0.2">Attacks on security</h2>
+<ul>
+<li>
+Violation of secrety
+
+<ul>
+<li>
+Attacker reads data without authorization   
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Violation of integrity
+
+<ul>
+<li>
+Attacker modifies data without authorization
+
+<li>
+E.g., Attacker modifies data on disk
+
+<li>
+E.g., Attacker modifies network reply to "read file" request
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Denial of service 
+
+<ul>
+<li>
+Attacker makes system unavailabel to legitimate users
+
+<li>
+Overload the system; cause a deadlock
+
+<li>
+Trigger security mechanism (e.g., wrong bank PIN 3 times)
+
+</ul>
+</ul>
+
+<h2 id="toc_0.3">Security is a negative goal</h2>
+<ul>
+<li>
+Ensure nothing happens without authorization
+
+<ul>
+<li>
+How do you reason about what a system will not do?
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Must first specify who is authorized to de what
+
+<ul>
+<li>
+Boils down to a question of specifying policy 
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Trusted computing base (TCB):
+  Collection of software upon which security relies
+
+<ul>
+<li>
+Minimize TCB, less code in which to find security holes
+
+</ul>
+</ul>
+
+<h2 id="toc_0.4">Protection mechanisms</h2>
+<ul>
+<li>
+Haredware protection
+
+<ul>
+<li>
+ROM and/or read-only disks can provide booting
+
+<li>
+Processor separates user and kernel code
+
+<li>
+User code cannot access devices, write kernel memory,...
+
+<li>
+Kernel boundary separates TCB
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Software protection 
+
+<ul>
+<li>
+Kernel or server sanity-checks and restricts call arguments  
+
+<li>
+Bytecode interpreter restricts functionality (e.g., JVM)
+
+</ul>
+</ul>
+     
+<ul>
+<li>
+Protection of network traffic with cryptography
+
+</ul>
+ 
+<h2 id="toc_0.5">Policy</h2>
+<ul>
+<li>
+Policy: The goal security must achieve
+
+<ul>
+<li>
+Human intent -- originates from outside the system 
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Often talked about in terms of subjects and objects
+
+<ul>
+<li>
+Subject: Entity making requests(=principal)
+
+<li>
+Object: Abstraction to which access is requested
+
+<ul>
+<li>
+(e.g., a file, a page of memory, a serial port) 
+
+</ul>
+<li>
+Each object supports different kinds of access
+
+<ul>
+<li>
+(e.g., read or write file, change permissions,...)
+
+</ul>
+</ul>
+</ul>
+         
+<ul>
+<li>
+Access control: Should operation be allowed?
+
+<ul>
+<li>
+What principal is making the request? (Authentication)
+
+<li>
+Is the operation permitted to the principal? (Authorization)
+
+</ul>
+</ul>
+
+<h2 id="toc_0.6">Examples of access control</h2>
+<ul>
+<li>
+Unnetworked machine in a locked room
+
+<ul>
+<li>
+Policy: Only users with keys can access the computer
+
+</ul>
+</ul>
+<blockquote>
+(Don't Overlook old-fashioned solutions if they apply!)
+</blockquote>
+    
+<ul>
+<li>
+Bank ATM card
+
+<ul>
+<li>
+Policy: Can only withdraw money if it's in your account
+
+<li>
+Authentication: Owner must possess card &amp; know PIN
+
+<li>
+Authorization: Database tracks account balances
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Private Unix file (only owner can read)
+
+<ul>
+<li>
+Authentication: Password to run software as user
+
+<li>
+Authorization: Kernel checks permissions bits on file
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Military classified data
+
+<ul>
+<li>
+If process reads top-secret data, cannot write secret
+
+</ul>
+</ul>
+
+<h2 id="toc_0.7">Authentication mechanisms</h2>
+<ul>
+<li>
+User provides password to server
+
+<li>
+User proves possession of device (e.g., smart card)
+
+<li>
+Cryptographic protocol proves possession of private key
+
+<li>
+Biometrics (e.g., fingerprint) -- Oftern misused
+
+<ul>
+<li>
+Should your laptop send your fingerprint to the server?
+
+</ul>
+<li>
+Don't forget server-to-user authorization!
+
+<ul>
+<li>
+Fake login screen or ATM machine gets user's password
+
+</ul>
+</ul>
+    
+    
+<h2 id="toc_0.8">Authorization mechanisms</h2>
+<ul>
+<li>
+Access control lists on objects
+
+<ul>
+<li>
+A list of principals and permitted operations for each  
+
+<li>
+
+
+</ul>
+<li>
+Self-Authenticating capabilities
+
+</ul>
+ 
+<ul>
+<li>
+Signed digital certificates
+
+<ul>
+<li>
+NYU certifies your status; eb.com allows NYU students
+
+</ul>
+</ul>
+     
+<ul>
+<li>
+Object access in type-safe language
+
+<ul>
+<li>
+Authentication: Some procedure returns a pointer to object 
+
+<li>
+Authorization: Possession of pointer allows access
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Issues of authorization mechanisms
+
+<ul>
+<li>
+Can those with access futher delegate access?
+
+<li>
+How easy is it to revoke access to an object?
+
+</ul>
+</ul>
+
+<h2 id="toc_0.9">Interaction between objects</h2>
+<ul>
+<li>
+Must consider any operations could violate policy
+
+</ul>
+ 
+<ul>
+<li>
+Example: Only professor can change grades
+
+<ul>
+<li>
+OS refuses write requests from others to grades file
+
+<li>
+But can attacker change program professor runs to edit file?
+
+<li>
+Can attacker change directory so owner reads different file?
+
+</ul>
+</ul>
+     
+<ul>
+<li>
+Example: setuid and ptrace (debugger system call)
+
+<ul>
+<li>
+Ptrace lets one process modify another's memory
+
+<li>
+Setuid gives a program more privilege than invoking user
+
+<li>
+Don't let process ptrace attach to more privileged process
+
+<li>
+But also must disable setuid if execing process ptraced
+
+</ul>
+</ul>
+
+<h2 id="toc_0.10">A linux security hole</h2>
+<ul>
+<li>
+Some programs acquire then release privileges
+
+<ul>
+<li>
+E.g., su user setuid, becomes user if password correct
+
+</ul>
+</ul>
+     
+<ul>
+<li>
+Consider the following:
+
+<ul>
+<li>
+A and B unprivileged processes owned by attacker
+
+<li>
+A ptraces B
+
+<li>
+A executes <code>su user</code> to its own identity
+
+<li>
+While <code>su</code> is superuser, B execs <code>su root</code>
+      (A is superuser, so this is not disabled) 
+
+<li>
+A types password, gets shell, and is attached to <code>su root</code>
+
+<li>
+Can manipulate <code>su root</code>'s memory to get root shell
+
+</ul>
+</ul>
+
+</body>
+</html>
