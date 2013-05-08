@@ -51,6 +51,72 @@
   -x 参数设置代理
 
 </ul>
+ 
+<h3 id="toc_0.0.1">使用gpu, cgminer 挖矿</h3>
+<h4 id="toc_0.0.1.1">windows, amd/ati 显卡</h4>
+<ul>
+<li>
+在<a href="http://support.amd.com/us/gpudownload/Pages/index.aspx">这里</a>下载amd的驱动
+
+<li>
+点击安装驱动
+
+<li>
+在<a href="http://ck.kolivas.org/apps/cgminer/">这里</a>下载cgminer的windows版本。
+
+<li>
+在<a href="https://github.com/litecoin-project/litecoin/wiki/Mining-hardware-comparison\#wiki-ATI_AMD_GPUs">这里</a>。
+ 查看相应cgminer的参数。
+
+<li>
+重启计算机，使驱动生效。
+
+<li>
+运行 cgminer -n 来查看显卡的驱动是否已经安装好。
+
+<li>
+使用cgminer开始挖矿。
+
+</ul>
+
+<h4 id="toc_0.0.1.2">linux, amd/ati 显卡</h4>
+<ul>
+<li>
+在<a href="http://support.amd.com/us/gpudownload/Pages/index.aspx">这里</a>下载amd的驱动，假设下载目录为~/Downloads
+
+<li>
+卸载linux原有的amd显卡驱动，可以在ubuntu software center中查看
+
+<li>
+使用终端登陆(&lt;Ctrl+Alt+F1&gt;)
+
+<li>
+运行 sudo /etc/init.d/lightdm stop,关闭桌面系统。
+
+<li>
+cd ~/Downloads
+
+<li>
+解压下载的驱动文件，在终端中运行。<br>
+   sudo ./amd-catalyst-13.4-linux-x86.x86_64.run
+
+<li>
+安装好驱动后重启系统。 
+
+<li>
+在<a href="http://ck.kolivas.org/apps/cgminer/">这里</a>下载cgminer的linux版本。
+
+<li>
+在<a href="https://github.com/litecoin-project/litecoin/wiki/Mining-hardware-comparison\#wiki-ATI_AMD_GPUs">这里</a>。
+ 查看相应cgminer的参数。
+
+<li>
+运行 cgminer -n 来查看显卡的驱动是否已经安装好。
+
+<li>
+运行cgminer开始挖矿
+
+</ul>
 
 </body>
 </html>
