@@ -40,6 +40,11 @@
 在freeshell中反向连接自己的主机做代理。<br>
   ssh -p 9999 -D8888 -f -N tinyfox@localhost <br>
   8888为代理的端口。
+  <br>
+  如果希望ssh只是建立一个通道并在后端执行，可以使用 -f(run in background)
+  -N(does not execute any command) 参数。
+  <br>
+  ssh -R9999:localhost:22 -f -N -p 10189 root@114.214.197.8
 
 </ul>
   
