@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>bitcoinMineLog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+2013-05-21 
+The basic idea:
+</p>
+<ul>
+<li>
+modify the source code of cgminer
+
+<li>
+substitute all the sha2() call in cgminer to the fpga call
+
+<ul>
+<li>
+using fpga to implement the sha256 algorithm
+
+<li>
+send the data needed to be caculated to fpga
+
+<ul>
+<li>
+i.e. send swap(context)  80(len)
+
+<li>
+send the data through serial port
+
+<li>
+the software should poll the fpga to acquire if the fpga 
+          has finished the calculation.
+
+</ul>
+<li>
+receive the result from fpga if the result is calculated.
+
+</ul>
+</ul>
+    
+   
+<p>
+todo:
+</p>
+<ul>
+<li class="done0">
+evaluate the time each function spend in cgminer to judge which
+      function should be hard-coded into fpga
+
+<ul>
+<li class="done0">
+using gprof 
+
+<ul>
+<li>
+Note to modify the makefile of cgminer
+
+<li>
+take test.c an example
+
+<li>
+gcc -pg -g -o test test.c
+
+<li>
+./test
+
+<li>
+a file called gmout.out has genereated
+
+<li>
+gprof ./test -p gmout.out
+
+<li>
+the evaluated result is generated.
+
+</ul>
+<li class="done0">
+using oprofile
+
+<ul>
+<li>
+opcontrol --init
+
+<li>
+opcontrol --
+
+</ul>
+</ul>
+<li class="done0">
+investigate how to communicate with the serial port int he c program. 
+
+</ul>
+    
+<p>
+About fpga:
+</p>
+<ul>
+<li>
+hard-code the sha256 algorithm in fpga
+
+<li>
+figure out how to communicate with the computer through serial port
+
+<ul>
+<li>
+For c program in the computer, how to read the state of fpga(to know
+          whether the calculated result is ready).
+
+<li>
+How to send data to fpga  
+
+<li>
+How to receive data from fpga
+
+</ul>
+</ul>
+        
+
+<p>
+About design:
+</p>
+<ul>
+<li>
+all communication operation with fpga is contained one file, is
+      encapsulated into the individual function.
+
+<li>
+substitute all the sha2() call in cgminer with the new defined function. 
+
+</ul>
+ 
+<p>
+Abort the use of serial port,
+use axlite to communicate with fpga
+</p>
+
+<p>
+see this page
+</p>
+
+<p>
+<a href="http://www.ibm.com/developerworks/cn/linux/l-oprof/index.html">http://www.ibm.com/developerworks/cn/linux/l-oprof/index.html</a>
+</p>
+
+</body>
+</html>
