@@ -30,53 +30,36 @@ And then follow the instructions.
 backup the config file /etc/update-manager/release-upgrades
 
 <li>
-open the config file
+open the config file<br>
+    <code>sudo vi /etc/update-manager/release-upgrades</code>
 
-</ul>
-<blockquote>
-<code>sudo vi /etc/update-manager/release-upgrades</code>
-</blockquote>
-<ul>
 <li>
-find the line that reads:
-
-</ul>
-
-<p>
+find the line that reads:<br>
   Promt=LTS
-</p>
-<ul>
-<li>
-change it to say:  
 
-</ul>
- 
-<p>
+<li>
+change it to say:  <br>
   Promt=normal
-</p>
-<ul>
+
 <li>
-update to the next release
+update to the next release<br>
+    <code>sudo do-release-upgrade</code>
 
 </ul>
-<blockquote>
-<code>sudo do-release-upgrade</code>
-</blockquote>
 
 <h3 id="toc_0.1.3">Upgrade to the any version</h3>
 <ul>
 <li>
-Launch the update manage
+Launch the update manage<br>
     <code>update-manager</code> 
 
 </ul>
 
 <ul>
 <li>
-Check for updates
+Check for updates<br>
 
 </ul>
-
 <p>
 Click the Check button to check for new updates. If there are any updates to
 install, use the Install Updates button to install them, press Check again after
@@ -85,10 +68,9 @@ that first update is complete — then press the Upgrade button.
  
 <ul>
 <li>
-Install the Upgrade
+Install the Upgrade<br>
 
 </ul>
-
 <p>
 A message will appear informing you of the availability of the new release.
 Click Upgrade and follow the on-screen instructions.
@@ -99,64 +81,38 @@ Click Upgrade and follow the on-screen instructions.
 <ul>
 <li>
 Download the version of Ubuntu you need to upgrade to(for me it was 9.04
-  Jaunty Jackalope)    
-
-</ul>
-  
-<p>
+  Jaunty Jackalope)<br>    
   <code>wget http://old-releases.ubuntu.com/releases/jaunty/ubuntu-9.04-server-i386.iso</code>
-</p>
+
+</ul>
   
 <ul>
 <li>
-Make a backup of your current sources.list
-
-</ul>
-
-<p>
+Make a backup of your current sources.list<br>
   <code>sudo mv /etc/apt/sources.list /etc/apt/sources.bak</code>
-</p>
-  
-<ul>
-<li>
-Mount the ISO so that it can read from
 
 </ul>
   
-<p>
+<ul>
+<li>
+Mount the ISO so that it can read from<br>
   <code>sudo mount -o loop Ubuntu-9-04-server-i386.iso /media/cdrom</code>
-</p>
+
+</ul>
   
 <ul>
 <li>
-Create a new sources.list with the ISO as the source for the Upgrade
-
-</ul>
-
-<p>
-  <code>vim /etc/apt/sources.list</code>
-</p>
-  
-<p>
-  add the following line
-</p>
-  
-<p>
+Create a new sources.list with the ISO as the source for the Upgrade<br>
+  <code>vim /etc/apt/sources.list</code><br>
+  add the following line<br>
   deb file::///media/cdrom &lt;release-version&gt;  main restricted
-</p>
-<ul>
+
 <li>
-Now update your sources and upgrade 
+Now update your sources and upgrade <br>
+  <code>apt-get update</code><br>
+  <code>apt-get dist-upgrade</code>
 
 </ul>
-  
-<p>
-  <code>apt-get update</code>
-</p>
-
-<p>
-  <code>apt-get dist-upgrade</code>
-</p>
   
 <p>
 Once the packages are downloaded, go through the installation and reboot the
